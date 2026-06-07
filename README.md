@@ -2,6 +2,12 @@
 
 Use GLM-5.1 to assist human reviewers in a DeSci funding round by producing a structured review brief from Spark DeSci project data.
 
+GitHub repo:
+
+```text
+https://github.com/Swiftevo/spark-desci-funding-intelligence-agent
+```
+
 This project participates in the **Z.AI Track | Web3 x Long-Horizon Task** of the AI x Web3 Agentic Builders Hackathon (2026-06-01 ~ 2026-06-13).
 
 ## Hackathon Track

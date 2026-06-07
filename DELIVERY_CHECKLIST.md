@@ -24,13 +24,13 @@
 ## GitHub / Repo
 
 ```text
-[ ] Initialize git repo
-[ ] Add .gitignore
-[ ] Create GitHub repository
-[ ] Commit current prototype
-[ ] Push main branch
-[ ] Add project context and hackathon alignment docs
-[ ] Ensure no secrets are committed
+[x] Initialize git repo
+[x] Add .gitignore
+[x] Create GitHub repository
+[x] Commit current prototype
+[x] Push main branch
+[x] Add project context and hackathon alignment docs
+[x] Ensure no secrets are committed
 ```
 
 ## Demo / Submission
