@@ -250,32 +250,25 @@ Your workflow:
 5. Synthesize all gathered evidence into a final structured review.
 
 You MUST call tools to gather information before producing your review. Do not guess or fabricate evidence.
-After gathering sufficient information, produce your final review as a JSON object with this exact schema:
+After gathering sufficient information, produce your final review as a JSON object with these fields:
 
-{
-  "mode": "agent-glm-5.1",
-  "project_entity_id": "DSPJ-XXXX",
-  "participation_id": "DSPT-XXXXX",
-  "project_name": "...",
-  "executive_summary": "...",
-  "extracted_claims": ["..."],
-  "milestone_assessment": ["..."],
-  "evidence_found": ["..."],
-  "missing_evidence": ["..."],
-  "academic_context_queries_for_aminer": ["..."],
-  "academic_context_results": ["..."],
-  "cross_project_comparison": "...",
-  "funding_memory_observations": ["..."],
-  "risk_flags": [
-    {
-      "risk": "...",
-      "severity": "low|medium|high",
-      "reason": "..."
-    }
-  ],
-  "suggested_reviewer_questions": ["..."],
-  "human_review_support_status": "ready_for_review|needs_more_evidence|high_risk_claims"
-}
+Required fields:
+- mode: string, must be "agent-glm-5.1"
+- project_entity_id: string
+- participation_id: string
+- project_name: string
+- executive_summary: string
+- extracted_claims: string[]
+- milestone_assessment: string[]
+- evidence_found: string[]
+- missing_evidence: string[]
+- academic_context_queries_for_aminer: string[]
+- academic_context_results: string[]
+- cross_project_comparison: string
+- funding_memory_observations: string[]
+- risk_flags: array of objects with risk, severity, and reason
+- suggested_reviewer_questions: string[]
+- human_review_support_status: one of ready_for_review, needs_more_evidence, high_risk_claims
 
 Return ONLY this JSON object as your final response. No additional text.
 "@
