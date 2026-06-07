@@ -2,32 +2,32 @@
 
 ## M1: Agent Core with GLM Function Calling
 
-**Status**: Not started
+**Status**: Done
 **Priority**: Critical
-**Target**: 2026-06-08
+**Completed**: 2026-06-07
 
-- [ ] Create `run-agent-review.ps1` — main agent loop script
-- [ ] Define GLM function calling tool schemas (search_projects, get_project_detail, compare_projects, search_academic_context, generate_reviewer_brief)
-- [ ] Implement tool execution functions in PowerShell
-- [ ] Implement multi-turn conversation loop (send messages → receive tool_calls → execute tools → feed results back → repeat)
-- [ ] Output execution trace showing GLM's autonomous decisions
-- [ ] Output structured review JSON
-- [ ] Output reviewer brief Markdown
-- [ ] Test with 1-2 projects
+- [x] Create `run-agent-review.ps1` - main agent loop script
+- [x] Define GLM function calling tool schemas (search_projects, get_project_detail, compare_projects, search_academic_context)
+- [x] Implement tool execution functions in PowerShell
+- [x] Implement multi-turn conversation loop (send messages -> receive tool_calls -> execute tools -> feed results back -> repeat)
+- [x] Output execution trace showing GLM's autonomous decisions
+- [x] Output structured review JSON
+- [x] Test with DSPJ-0003 - 4 turns, 7 tool calls, successful
+- [x] Token optimization: compress tool results, MaxTurns 6, compact system prompt
 
 ## M2: Batch Review (5 Random Projects)
 
-**Status**: Not started
+**Status**: Script ready, not yet executed
 **Priority**: High
-**Target**: 2026-06-09
+**Target**: 2026-06-08
 
-- [ ] Create `run-batch-review.ps1`
-- [ ] Random selection of 5 projects from projects.json
-- [ ] Loop through selected projects using agent review
-- [ ] Per-project output: review JSON + reviewer brief + execution trace
-- [ ] Aggregate output: `outputs/batch-summary.json`
-- [ ] Error handling and retry logic
-- [ ] Progress display
+- [x] Create `run-batch-review.ps1`
+- [x] Random selection of 5 projects from projects.json
+- [x] Loop through selected projects using agent review
+- [x] Aggregate output: `outputs/batch-summary.json`
+- [x] Error handling and retry logic
+- [x] Progress display
+- [ ] Execute batch review with API key
 
 ## M3: Prompt Quality & Cross-Project Comparison
 
@@ -54,6 +54,10 @@
 - [ ] Project proposal / documentation
 - [ ] Create `DEMO_SCRIPT.md` using the DSPJ-0003 agent trace as the 3-minute demo storyline
 - [ ] Document safety, cost, and permission boundaries
+- [ ] Clearly label academic context limitations in demo:
+  - [ ] Tool-returned academic context is placeholder data.
+  - [ ] GLM-5.1 analysis based on placeholder context is not real literature support.
+  - [ ] Next step is replacing the placeholder with Semantic Scholar / AMiner retrieval.
 - [ ] Final testing and polish
 
 ## Deferred (Post-Hackathon)

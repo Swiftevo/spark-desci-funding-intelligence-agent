@@ -77,6 +77,7 @@ The demo shows long-horizon workflow steps
 ```text
 Do not claim the system makes final funding decisions.
 Do not present dummy AMiner output as real AMiner results.
+Do not present GLM-5.1 analysis from placeholder academic context as verified literature support.
 Do not hide missing evidence or limitations.
 Do not make the project look like a generic AI summarizer.
 Do not commit API keys, local environment files, or private credentials.

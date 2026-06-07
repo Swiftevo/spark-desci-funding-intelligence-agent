@@ -113,6 +113,7 @@ Each review produces:
 | 2026-06-07 | Use GLM function calling agent loop | Hackathon requires demonstrating long-horizon autonomous capability; scripted pipeline cannot show this |
 | 2026-06-07 | Batch review uses 5 random projects, not all 49 | Save API tokens; 5 is sufficient for demo |
 | 2026-06-07 | Semantic Scholar as interim academic context source | No AMiner API yet; Semantic Scholar is free and keyless; will swap to AMiner when API is obtained |
+| 2026-06-07 | Academic context must be labeled as placeholder until real retrieval is integrated | GLM-5.1 analysis based on placeholder context is not real literature support |
 | 2026-06-07 | Funding memory = same Spark round only | No cross-round data yet; will extend to Gitcoin grants post-hackathon |
 | 2026-06-07 | Keep PowerShell for scripts | Consistency with existing codebase; agent core uses same Z.AI API patterns |
 

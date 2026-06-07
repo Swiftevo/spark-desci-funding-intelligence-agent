@@ -61,8 +61,22 @@ Tools available to the agent:
 | `search_projects` | Search the 49-project dataset |
 | `get_project_detail` | Get full project details by ID |
 | `compare_projects` | Cross-project comparison within same domain |
-| `search_academic_context` | Academic literature search (Semantic Scholar, then AMiner) |
+| `search_academic_context` | Placeholder academic context adapter; intended to be replaced by Semantic Scholar, then AMiner |
 | `generate_reviewer_brief` | Convert review JSON to human-readable Markdown |
+
+## Academic Context Limitation
+
+The current `search_academic_context` tool is a placeholder adapter.
+
+Important demo caveats:
+
+```text
+1. Tool-returned academic context is placeholder data.
+2. GLM-5.1 analysis based on placeholder context is not real literature support.
+3. The next step is replacing the placeholder with Semantic Scholar / AMiner retrieval.
+```
+
+Spark project retrieval and GLM-5.1 tool calling are live. Academic context is currently workflow scaffolding, not verified citation evidence.
 
 ## Quick Start
 
@@ -162,7 +176,7 @@ Recharge or activate an API resource package in the Z.AI dashboard, then retry.
 | `run-dummy-review.ps1` | Keep as no-API fallback |
 | `run-glm-project-review.ps1` | Single-call GLM baseline |
 | `run-agent-review.ps1` | Main GLM-5.1 function-calling agent loop |
-| `search-aminer-context.ps1` | Semantic Scholar API, then AMiner API |
+| `search-aminer-context.ps1` | Placeholder now; replace with Semantic Scholar API, then AMiner API |
 
 ## Roadmap
 
