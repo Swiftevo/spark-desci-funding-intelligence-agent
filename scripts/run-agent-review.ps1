@@ -3,7 +3,8 @@ param(
   [string]$ProjectsPath = ".\data\projects.json",
   [string]$Model = "glm-5.1",
   [string]$OutDir = ".\outputs",
-  [int]$MaxTurns = 6
+  [int]$MaxTurns = 6,
+  [int]$MaxRetries = 2
 )
 
 $ErrorActionPreference = "Stop"
@@ -304,26 +305,41 @@ while ($turn -lt $MaxTurns) {
     "Content-Type" = "application/json"
   }
 
-  try {
-    $response = Invoke-RestMethod `
-      -Uri "https://api.z.ai/api/paas/v4/chat/completions" `
-      -Method Post `
-      -Headers $headers `
-      -Body $body
-  } catch {
-    Write-Host "API call failed at turn $turn" -ForegroundColor Red
-    if ($_.Exception.Response) {
-      $stream = $_.Exception.Response.GetResponseStream()
-      if ($stream) {
-        $reader = New-Object System.IO.StreamReader($stream)
-        $errorBody = $reader.ReadToEnd()
-        Write-Host "Error: $errorBody" -ForegroundColor Red
+  $retryCount = 0
+  $response = $null
+
+  while ($retryCount -le $MaxRetries) {
+    try {
+      $response = Invoke-RestMethod `
+        -Uri "https://api.z.ai/api/paas/v4/chat/completions" `
+        -Method Post `
+        -Headers $headers `
+        -Body $body
+      break
+    } catch {
+      $retryCount++
+      if ($retryCount -le $MaxRetries) {
+        $waitSec = $retryCount * 5
+        Write-Host "  API call failed (retry $retryCount/$MaxRetries). Retrying in ${waitSec}s..." -ForegroundColor Yellow
+        Start-Sleep -Seconds $waitSec
+      } else {
+        Write-Host "API call failed at turn $turn after $MaxRetries retries" -ForegroundColor Red
+        if ($_.Exception.Response) {
+          $stream = $_.Exception.Response.GetResponseStream()
+          if ($stream) {
+            $reader = New-Object System.IO.StreamReader($stream)
+            $errorBody = $reader.ReadToEnd()
+            Write-Host "Error: $errorBody" -ForegroundColor Red
+          }
+        } else {
+          Write-Host $_.Exception.Message -ForegroundColor Red
+        }
+        break
       }
-    } else {
-      Write-Host $_.Exception.Message -ForegroundColor Red
     }
-    break
   }
+
+  if (-not $response) { break }
 
   $choice = $response.choices[0]
   $message = $choice.message

@@ -126,6 +126,12 @@ This writes `data/projects.json`.
 
 This is the main long-horizon track demo path. It lets GLM-5.1 call project retrieval, comparison, and academic-context tools before generating the final review.
 
+The agent loop retries transient API failures by default:
+
+```powershell
+.\scripts\run-agent-review.ps1 -ProjectId DSPJ-0003 -MaxRetries 2
+```
+
 ### Run Batch Agent Reviews
 
 ```powershell
