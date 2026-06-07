@@ -16,9 +16,9 @@
 [x] Fetch project detail by ID
 [x] Run dummy end-to-end review workflow
 [x] Run real GLM-5.1 single-project review
-[~] Generate polished reviewer brief from GLM-5.1 output
-[ ] Replace or clearly label dummy AMiner adapter
-[ ] Add batch or comparison workflow for multiple projects
+[x] Generate polished reviewer brief from GLM-5.1 output
+[x] Replace or clearly label dummy AMiner adapter
+[x] Add batch or comparison workflow for multiple projects
 ```
 
 ## GitHub / Repo
@@ -36,13 +36,13 @@
 ## Demo / Submission
 
 ```text
-[ ] Choose primary demo project ID
-[ ] Generate final GLM-5.1 reviewer output
-[ ] Generate final reviewer brief
+[x] Choose primary demo project ID
+[x] Generate final GLM-5.1 reviewer output
+[x] Generate final reviewer brief
 [ ] Write 3-minute demo script
 [ ] Record demo video
-[ ] Prepare submission proposal text
-[ ] Confirm GitHub README has setup, usage, and architecture
+[x] Prepare submission proposal text
+[x] Confirm GitHub README has setup, usage, and architecture
 ```
 
 ## Review Criteria For Codex
