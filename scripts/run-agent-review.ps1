@@ -3,7 +3,7 @@ param(
   [string]$ProjectsPath = ".\data\projects.json",
   [string]$Model = "glm-5.1",
   [string]$OutDir = ".\outputs",
-  [int]$MaxTurns = 12
+  [int]$MaxTurns = 6
 )
 
 $ErrorActionPreference = "Stop"
@@ -72,13 +72,30 @@ function Invoke-SearchProjects {
   @($matches | Sort-Object -Property { $_.score } -Descending | Select-Object -First $Top)
 }
 
+function Compress-Project {
+  param($Project, [int]$RawTextLimit = 1200)
+
+  $result = [ordered]@{}
+  foreach ($prop in $Project.PSObject.Properties) {
+    $val = $prop.Value
+    if ($null -ne $val -and $val -ne "") {
+      if ($prop.Name -eq "raw_text" -and $val.Length -gt $RawTextLimit) {
+        $result[$prop.Name] = $val.Substring(0, $RawTextLimit) + "..."
+      } else {
+        $result[$prop.Name] = $val
+      }
+    }
+  }
+  $result
+}
+
 function Invoke-GetProjectDetail {
   param([string]$ProjectId)
   $project = Find-Project -Id $ProjectId
   if (-not $project) {
     return @{ error = "Project not found: $ProjectId" }
   }
-  $project
+  Compress-Project -Project $project
 }
 
 function Invoke-CompareProjects {
@@ -93,25 +110,33 @@ function Invoke-CompareProjects {
     return @{ error = "Need at least 2 valid project IDs to compare." }
   }
 
+  $targetProject = $projects | Select-Object -First 1
+  $targetDomain = $targetProject.domain
+  $dominantComparisonDomain = (@($projects | ForEach-Object { $_.domain } | Where-Object { $_ } | Group-Object | Sort-Object Count -Descending | Select-Object -First 1).Name)
+
   $comparison = foreach ($p in $projects) {
+    $compressed = Compress-Project -Project $p
     [ordered]@{
-      project_entity_id = $p.project_entity_id
-      project_name = $p.project_name
-      domain = $p.domain
-      project_type = $p.project_type
-      what_are_you_making = $p.what_are_you_making
-      impact = $p.impact
-      progress = $p.progress
-      evidence_level = $p.evidence_level
-      risk_flag = $p.risk_flag
-      fundability_score = $p.fundability_score
-      github_path = $p.github_path
+      project_entity_id = $compressed.project_entity_id
+      project_name = $compressed.project_name
+      domain = $compressed.domain
+      project_type = $compressed.project_type
+      what_are_you_making = $compressed.what_are_you_making
+      impact = $compressed.impact
+      progress = $compressed.progress
+      evidence_level = $compressed.evidence_level
+      risk_flag = $compressed.risk_flag
+      fundability_score = $compressed.fundability_score
+      github_path = $compressed.github_path
     }
   }
 
   [ordered]@{
     comparison_count = $comparison.Count
-    shared_domain = (@($comparison | ForEach-Object { $_.domain } | Group-Object | Sort-Object Count -Descending | Select-Object -First 1).Name)
+    target_project_id = $targetProject.project_entity_id
+    target_domain = $targetDomain
+    dominant_comparison_domain = $dominantComparisonDomain
+    comparison_note = "dominant_comparison_domain is the most common domain among compared projects; it is not necessarily shared by every project."
     comparison = @($comparison)
   }
 }
