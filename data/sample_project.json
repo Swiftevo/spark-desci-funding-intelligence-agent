@@ -1,0 +1,31 @@
+{
+  "project_id": "spark-sample-001",
+  "project_name": "RareDx AI",
+  "round": "Spark DeSci Sample Round",
+  "description": "RareDx AI proposes an open-source AI workflow for rare disease diagnosis support. The project claims it can help patient advocacy groups and clinicians identify candidate rare diseases from symptoms, literature, and public biomedical databases.",
+  "research_area": ["rare disease", "AI diagnosis", "clinical decision support", "open science"],
+  "claims": [
+    "The system can map patient symptom descriptions to candidate rare diseases.",
+    "The model can cite biomedical literature or public disease databases for each suggestion.",
+    "The team will release an open-source prototype and evaluation dataset."
+  ],
+  "milestones": [
+    "Build a working symptom-to-disease prototype.",
+    "Collect and document a small benchmark dataset.",
+    "Publish a public demo and GitHub repository."
+  ],
+  "evidence_links": {
+    "website": "https://example.org/raredx-ai",
+    "github": "https://github.com/example/raredx-ai",
+    "publications": []
+  },
+  "previous_rounds": [
+    {
+      "round": "Spark Pilot",
+      "requested_amount_usd": 5000,
+      "stated_goal": "Create initial rare disease diagnosis workflow.",
+      "reported_progress": "Prototype design and literature review completed."
+    }
+  ],
+  "review_notes": "This is a sample project for testing GLM-5.1 review workflow. Replace it with one of the 49 real Spark DeSci projects."
+}
