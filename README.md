@@ -98,6 +98,22 @@ This writes `data/projects.json`.
 .\scripts\run-glm-project-review.ps1 -ProjectId DSPJ-0003
 ```
 
+### Run GLM-5.1 Agent Loop
+
+```powershell
+.\scripts\run-agent-review.ps1 -ProjectId DSPJ-0003
+```
+
+This is the main long-horizon track demo path. It lets GLM-5.1 call project retrieval, comparison, and academic-context tools before generating the final review.
+
+### Run Batch Agent Reviews
+
+```powershell
+.\scripts\run-batch-review.ps1 -SampleSize 5
+```
+
+Use this for stress testing and demo preparation. It randomly selects Spark projects, runs the GLM-5.1 agent loop, and writes a batch summary.
+
 ### Test GLM-5.1 Connection
 
 ```powershell
@@ -116,8 +132,11 @@ powershell -ExecutionPolicy Bypass -File .\scripts\test-glm.ps1
 outputs/
   DSPJ-0003-review.json          # Dummy review result
   DSPJ-0003-glm-review.json      # GLM-5.1 review result
+  DSPJ-0003-agent-review.json    # GLM-5.1 tool-calling agent result
+  DSPJ-0003-agent-trace.json     # Tool-call trace for long-horizon demo
   DSPJ-0003-aminer-context.json  # Academic context (dummy for now)
   DSPJ-0003-reviewer-brief.md    # Human-readable brief
+  batch-summary.json             # Batch run summary
 ```
 
 ## API Balance Note
@@ -134,7 +153,9 @@ Recharge or activate an API resource package in the Z.AI dashboard, then retry.
 
 | Current | Target |
 |---------|--------|
-| `run-dummy-review.ps1` | GLM-5.1 agent loop with function calling |
+| `run-dummy-review.ps1` | Keep as no-API fallback |
+| `run-glm-project-review.ps1` | Single-call GLM baseline |
+| `run-agent-review.ps1` | Main GLM-5.1 function-calling agent loop |
 | `search-aminer-context.ps1` | Semantic Scholar API, then AMiner API |
 
 ## Roadmap
