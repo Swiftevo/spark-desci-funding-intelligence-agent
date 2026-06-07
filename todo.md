@@ -43,15 +43,16 @@
 
 ## M4: Demo Preparation & Submission
 
-**Status**: Not started
+**Status**: In progress
 **Priority**: High
 **Target**: 2026-06-12
 
 - [ ] Clean execution trace output for demo readability
+- [ ] Convert `outputs/DSPJ-0003-agent-review.json` into a polished reviewer brief for the demo baseline
 - [ ] One-click demo script (single project + batch)
 - [ ] Update README for submission requirements
 - [ ] Project proposal / documentation
-- [ ] Demo video script / outline
+- [ ] Create `DEMO_SCRIPT.md` using the DSPJ-0003 agent trace as the 3-minute demo storyline
 - [ ] Document safety, cost, and permission boundaries
 - [ ] Final testing and polish
 
