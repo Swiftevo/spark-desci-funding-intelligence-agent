@@ -74,6 +74,9 @@
 
 - [ ] Create `DEMO_SCRIPT.md` with a 3-minute narration
 - [ ] Create a one-command demo path for judges
+- [ ] Add timestamped run archive under `outputs/runs/YYYY-MM-DD-HHMM-ProjectId/`
+- [ ] Preserve agent review JSON, trace JSON, and reviewer brief per archived run
+- [ ] Document archived runs as an audit trail for prompt/model/tool improvement
 - [ ] Re-run primary project demo when GLM quota is available
 - [ ] Record demo video
 - [ ] Final README pass after video/demo script
