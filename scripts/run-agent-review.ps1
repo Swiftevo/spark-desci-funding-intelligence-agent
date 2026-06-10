@@ -174,9 +174,12 @@ function Invoke-SearchAcademicContext {
 
   if ($useOpenAlexFallback) {
     Write-Host "  Fallback: $fallbackReason" -ForegroundColor Yellow
-    $openAlexUri = "https://api.openalex.org/works?search=$encodedQuery&per_page=5"
+    $openAlexQuery = [System.Net.WebUtility]::UrlEncode($topic)
+    $openAlexSelectFields = "id,title,display_name,publication_year,authorships,primary_location,doi,open_access,cited_by_count,topics"
+    $openAlexUri = "https://api.openalex.org/works?search=$openAlexQuery&per_page=5&select=$openAlexSelectFields"
     if ($env:OPENALEX_API_KEY) {
-      $openAlexUri += "&api_key=$($env:OPENALEX_API_KEY)"
+      $encodedOpenAlexApiKey = [Uri]::EscapeDataString($env:OPENALEX_API_KEY)
+      $openAlexUri += "&api_key=$encodedOpenAlexApiKey"
     }
 
     try {
@@ -354,21 +357,6 @@ function Process-OpenAlexResponse {
         $openAccessUrl = $work.open_access.oa_url
       }
 
-      $abstract = $null
-      if ($work.abstract_inverted_index) {
-        $tokens = @()
-        foreach ($property in $work.abstract_inverted_index.PSObject.Properties) {
-          foreach ($position in @($property.Value)) {
-            $tokens += [pscustomobject]@{ position = [int]$position; token = $property.Name }
-          }
-        }
-        $abstractText = (($tokens | Sort-Object position | Select-Object -First 60 | ForEach-Object { $_.token }) -join " ")
-        if ($abstractText) {
-          $abstract = $abstractText
-          if ($tokens.Count -gt 60) { $abstract += "..." }
-        }
-      }
-
       $papers += [ordered]@{
         title = $work.title
         display_name = $work.display_name
@@ -380,14 +368,14 @@ function Process-OpenAlexResponse {
         oa_url = $openAccessUrl
         doi = $doi
         topics = $topics
-        abstract_preview = $abstract
+        abstract_preview = $null
         url = $work.id
       }
     }
   }
 
   $totalWorks = $Response.meta.count
-  $topFields = $fieldCounts.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 3 | ForEach-Object { $_.Key }
+  $topFields = @($fieldCounts.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 3 | ForEach-Object { $_.Key })
 
   $avgCitations = 0
   if ($papers.Count -gt 0) {

@@ -77,6 +77,7 @@
 - [ ] Preserve agent review JSON, trace JSON, and reviewer brief per archived run
 - [ ] Document archived runs as an audit trail for prompt/model/tool improvement
 - [ ] Re-run primary project demo when GLM quota is available
+- [ ] Add lightweight local demo dashboard frontend for reviewer briefs, agent traces, academic context, risks, and missing evidence
 - [ ] Record demo video
 - [ ] Final README pass after video/demo script
 - [ ] Final secret scan before submission
@@ -97,4 +98,4 @@
 - [ ] AMiner API integration (when access is obtained)
 - [ ] Gitcoin grant round data import (on-chain donation records)
 - [ ] Cross-round funding memory comparison
-- [ ] Web UI for reviewer briefs
+- [ ] Web UI for reviewer briefs beyond the local hackathon demo dashboard
