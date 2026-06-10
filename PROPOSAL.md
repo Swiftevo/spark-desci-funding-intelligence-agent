@@ -17,11 +17,12 @@ Current AI tools can summarize proposals, but summarization does not solve the r
 Spark DeSci Funding Intelligence Agent uses GLM-5.1 as a long-horizon reasoning engine that decomposes funding review into multiple tool-based steps:
 
 1. **Project retrieval** - fetch the full proposal from the Spark DeSci 49-project dataset
-2. **Related project search** - find similar projects in the same round
-3. **Cross-project comparison** - compare progress, evidence level, and risk profiles
-4. **Academic context search** - identify field maturity, prior work, and novelty questions
-5. **Structured review synthesis** - produce JSON with claims, evidence gaps, risks, and reviewer questions
-6. **Reviewer brief generation** - convert structured review JSON into human-readable Markdown
+2. **Public evidence check** - inspect GitHub repositories and project websites at metadata level
+3. **Related project search** - find similar projects in the same round
+4. **Cross-project comparison** - compare progress, evidence level, and risk profiles
+5. **Academic context search** - identify field maturity, prior work, and novelty questions through Semantic Scholar, OpenAlex, and local cached metadata fallback
+6. **Structured review synthesis** - produce JSON with claims, evidence gaps, risks, and reviewer questions
+7. **Reviewer brief generation** - convert structured review JSON into human-readable Markdown
 
 The agent does not make funding decisions. It reduces reviewer workload while preserving human oversight.
 
@@ -59,8 +60,9 @@ User input: project ID
 GLM-5.1 agent loop
 |-- search_projects(query, top)
 |-- get_project_detail(project_id)
+|-- fetch_web_resource(url)
 |-- compare_projects(project_ids)
-|-- search_academic_context(query)      # Semantic Scholar API; OpenAlex fallback; AMiner planned
+|-- search_academic_context(query, domain) # Semantic Scholar; OpenAlex; local cache fallback; AMiner planned
 |
 Structured review JSON
 |
@@ -78,23 +80,25 @@ All current tools are read-only. The system does not modify project data and doe
 | GLM-5.1 agent loop with function calling | Working |
 | Spark DeSci 49-project search and retrieval | Working |
 | Cross-project comparison | Working |
+| Public web evidence checks | Working via `scripts/fetch-web-resource.ps1` |
 | Batch review runner | Working, with partial-run error reporting |
 | Retry mechanism for API failures | Working |
 | Token optimization | Working |
 | Reviewer brief generation | Working via `scripts/generate-reviewer-brief.ps1` |
 | Six reviewer brief artifacts | Included in `docs/reviewer-briefs/` |
-| Academic context real API | Semantic Scholar live; OpenAlex fallback live; AMiner planned |
+| Academic context retrieval | Semantic Scholar live; OpenAlex fallback live; local metadata cache live; AMiner planned |
 | Cross-round funding memory | Post-hackathon |
 
 ## Academic Context Source And Limitation
 
-The current academic context tool uses Semantic Scholar API metadata with OpenAlex fallback.
+The current academic context tool uses Semantic Scholar API metadata first, OpenAlex metadata as fallback, and a small local academic metadata cache as the final fallback when both live APIs fail.
 
 Important limitation:
 
 ```text
-Academic context returned by the tool is real Semantic Scholar or OpenAlex metadata.
+Academic context returned by the tool is Semantic Scholar, OpenAlex, or local cached paper metadata.
 Provider coverage is not exhaustive and does not prove a project claim.
+The local cache stores metadata only and does not include full paper text or PDFs.
 GLM-5.1 analysis based on retrieved literature still requires human review.
 The next step is adding AMiner retrieval when access is available.
 ```

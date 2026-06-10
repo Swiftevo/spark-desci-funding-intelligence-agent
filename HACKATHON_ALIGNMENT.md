@@ -15,7 +15,7 @@ Proposal -> Summary
 This project should demonstrate:
 
 ```text
-Funding round -> Proposal intake -> Evidence checking -> Academic context -> Cross-project comparison -> Risk detection -> Reviewer brief
+Funding round -> Proposal intake -> Public evidence checking -> Academic context -> Cross-project comparison -> Risk detection -> Reviewer brief
 ```
 
 That makes it a long-horizon workflow rather than a simple summarization task.
@@ -27,7 +27,7 @@ The demo and README should make these signals obvious:
 ```text
 GLM-5.1 is used as the reasoning/review engine
 Spark DeSci 49-project dataset is used as real domain data
-Semantic Scholar is the primary live academic context layer; OpenAlex is the fallback; AMiner remains planned
+Semantic Scholar is the primary live academic context layer; OpenAlex is the live fallback; local academic metadata cache is the final fallback; AMiner remains planned
 The agent performs multiple review steps
 Human reviewers remain final decision-makers
 The output reduces reviewer workload
@@ -44,7 +44,7 @@ README with setup and demo instructions
 Project proposal / pitch
 Evidence of GLM-5.1 usage
 Evidence of Spark dataset usage
-Semantic Scholar integration, OpenAlex fallback, and AMiner roadmap explanation
+Semantic Scholar integration, OpenAlex fallback, local academic metadata cache, and AMiner roadmap explanation
 Generated reviewer report example
 ```
 
@@ -56,7 +56,7 @@ Recommended 3-minute flow:
 1. Show the pain: DeSci funding reviewers must inspect many proposals and scientific claims.
 2. Show Spark dataset: 49 real DeSci projects are imported.
 3. Search a project: retrieve a relevant project from Spark DB.
-4. Run GLM-5.1 review: extract claims, risks, missing evidence, and academic context from Semantic Scholar / OpenAlex fallback.
+4. Run GLM-5.1 review: extract claims, risks, missing evidence, web evidence signals, and academic context from Semantic Scholar / OpenAlex / local cache fallback.
 5. Show reviewer brief: human-readable output for reviewers.
 6. Explain next step: AMiner extension and cross-round memory.
 ```
@@ -77,7 +77,8 @@ The demo shows long-horizon workflow steps
 ```text
 Do not claim the system makes final funding decisions.
 Do not present AMiner as live.
-Do not present Semantic Scholar or OpenAlex metadata, or GLM-5.1 analysis, as definitive scientific validation.
+Do not present Semantic Scholar, OpenAlex, local cache metadata, or GLM-5.1 analysis as definitive scientific validation.
+Do not present GitHub or website metadata as proof of team identity, production readiness, or code quality.
 Do not hide missing evidence or limitations.
 Do not make the project look like a generic AI summarizer.
 Do not commit API keys, local environment files, or private credentials.

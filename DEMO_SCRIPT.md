@@ -29,7 +29,7 @@ Say:
 ```text
 Spark DeSci Funding Intelligence Agent uses GLM-5.1 to assist human reviewers in a DeSci funding round.
 
-Instead of only summarizing proposals, it follows a long-horizon review workflow: retrieve project data, search related projects, compare projects in the same round, check academic context through Semantic Scholar with OpenAlex fallback, and generate reviewer support.
+Instead of only summarizing proposals, it follows a long-horizon review workflow: retrieve project data, check public evidence links, search related projects, compare projects in the same round, check academic context through Semantic Scholar with OpenAlex and local cache fallback, and generate reviewer support.
 ```
 
 ## 2. Ask GLM To Inspect The Project
@@ -53,11 +53,13 @@ Project ID: DSPJ-0003
 |
 get_project_detail
 |
+fetch_web_resource
+|
 search_projects
 |
 compare_projects
 |
-search_academic_context using Semantic Scholar / OpenAlex fallback
+search_academic_context using Semantic Scholar / OpenAlex / local cache fallback
 |
 structured review JSON
 |
@@ -119,7 +121,33 @@ credibility questions
 If Semantic Scholar returns a rate limit, say:
 
 ```text
-Semantic Scholar is live but rate limited. The agent can fallback to OpenAlex, and if both providers fail it marks academic context as needs verification instead of pretending the literature check succeeded.
+Semantic Scholar is live but rate limited. The agent can fallback to OpenAlex, and if both live providers fail it uses a small local academic metadata cache as a final guardrail instead of pretending the literature check succeeded.
+```
+
+Then show the local cache fallback directly:
+
+```powershell
+.\scripts\search-academic-cache.ps1 -Query "LLM bias" -Domain "AI / Data" -Limit 2
+```
+
+Say:
+
+```text
+The local cache stores metadata only: titles, authors, citation counts, DOI/OpenAlex IDs, and OA links. It is not a full literature review, but it keeps the review workflow resilient when live APIs are unavailable.
+```
+
+## 6A. Show Web Evidence Check
+
+Run:
+
+```powershell
+.\scripts\fetch-web-resource.ps1 -Url "https://github.com/psf/requests"
+```
+
+Say:
+
+```text
+The agent can inspect public evidence links at metadata level: GitHub activity, license, README presence, and code/package signals. This does not prove code quality, but it helps reviewers quickly identify whether an external evidence link is real and inspectable.
 ```
 
 ## 7. Show Reviewer Brief
@@ -150,7 +178,7 @@ Say:
 ```text
 The system does not make funding decisions.
 It produces review support for human evaluators.
-Semantic Scholar and OpenAlex metadata are useful academic context, but not exhaustive validation.
+Semantic Scholar, OpenAlex, and local cache metadata are useful academic context, but not exhaustive validation.
 AMiner integration and Gitcoin QF integrity analysis are planned next modules.
 ```
 
@@ -161,6 +189,7 @@ Say:
 ```text
 This prototype demonstrates GLM-5.1 as a long-horizon DeSci funding review assistant.
 It combines real Spark DeSci project data, tool-based retrieval, cross-project comparison, academic context from Semantic Scholar / OpenAlex fallback, and reviewer brief generation.
+It also includes public web evidence checks and a local academic metadata cache for resilience during API rate limits.
 ```
 
 ## Optional API-Based Demo Path

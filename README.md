@@ -81,9 +81,10 @@ Demo caveats:
 ```text
 1. Semantic Scholar API rate limits may apply. If available, set `SEMANTIC_SCHOLAR_API_KEY` for more stable access.
 2. OpenAlex fallback is available. If available, set `OPENALEX_API_KEY` for higher free daily usage.
-3. Not all projects will have extensive literature; some topics may have limited results.
-4. The next step is adding AMiner API when access is obtained.
-5. Agent analysis based on retrieved literature is real, but still limited to each provider's coverage.
+3. Local academic cache is metadata-only; it does not contain PDFs, full text, or exhaustive coverage.
+4. Not all projects will have extensive literature; some topics may have limited results.
+5. The next step is adding AMiner API when access is obtained.
+6. Agent analysis based on retrieved literature is real, but still limited to each provider's coverage.
 ```
 
 Spark project retrieval, GLM-5.1 tool calling, Spark cross-project comparison, Semantic Scholar academic context, OpenAlex fallback, and local academic metadata cache fallback are all live.
@@ -102,6 +103,8 @@ $env:OPENALEX_API_KEY="your_openalex_key"
 ### One-Click Demo
 
 The recorded hackathon demo uses OpenCode with GLM-5.1 via `xixixixi/glm-5.1`; see [DEMO_SCRIPT.md](./DEMO_SCRIPT.md). The PowerShell command below is the optional direct Z.AI API path and requires `ZAI_API_KEY`.
+
+Before recording, use [DRY_RUN_CHECKLIST.md](./DRY_RUN_CHECKLIST.md) to verify Spark retrieval, web evidence checks, Semantic Scholar/OpenAlex/local cache academic context, reviewer brief walkthrough, and final secret scan.
 
 Run the complete demo (single project + optional batch):
 

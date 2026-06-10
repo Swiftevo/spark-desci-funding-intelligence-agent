@@ -73,6 +73,10 @@
 
 - [x] Create `DEMO_SCRIPT.md` with a 3-minute narration
 - [x] Create a one-command demo path for judges
+- [x] Add public web evidence checks for GitHub repositories and project websites
+- [x] Add local academic metadata cache fallback for API outage / rate-limit resilience
+- [x] Document multi-layer academic fallback in README and demo remarks
+- [ ] Complete dry run using Spark retrieval, web evidence check, academic cache check, and reviewer brief walkthrough
 - [ ] Add timestamped run archive under `outputs/runs/YYYY-MM-DD-HHMM-ProjectId/`
 - [ ] Preserve agent review JSON, trace JSON, and reviewer brief per archived run
 - [ ] Document archived runs as an audit trail for prompt/model/tool improvement

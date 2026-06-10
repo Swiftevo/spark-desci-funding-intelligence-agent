@@ -39,7 +39,10 @@
 [x] Choose primary demo project ID
 [x] Generate final GLM-5.1 reviewer output
 [x] Generate final reviewer brief
-[ ] Write 3-minute demo script
+[x] Write 3-minute demo script
+[x] Add public web evidence check demo step
+[x] Add local academic cache fallback demo step
+[ ] Complete dry run checklist
 [ ] Record demo video
 [x] Prepare submission proposal text
 [x] Confirm GitHub README has setup, usage, and architecture
@@ -54,6 +57,8 @@ Before any major GLM/OpenCode-generated change is accepted:
 [ ] Does it keep human review oversight?
 [ ] Does it use Spark data meaningfully?
 [ ] Does it keep AMiner claims honest?
+[ ] Does it keep Semantic Scholar, OpenAlex, and local cache claims honest?
+[ ] Does it avoid overstating GitHub / website metadata checks?
 [ ] Does it avoid committing secrets?
 [ ] Does it keep commands runnable on Windows PowerShell?
 ```
