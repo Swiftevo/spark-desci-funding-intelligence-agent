@@ -1,0 +1,22 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W1516315621",
+    "title":  "Digital Imaging for Cultural Heritage Preservation",
+    "domain_category":  "art-preservation",
+    "year":  2017,
+    "authors":  [
+                    "Filippo Stanco",
+                    "Sebastiano Battiato",
+                    "Giovanni Gallo"
+                ],
+    "venue":  null,
+    "cited_by_count":  148,
+    "doi":  "https://doi.org/10.1201/b11049",
+    "is_oa":  false,
+    "oa_url":  null,
+    "topics":  [
+                   "3D Surveying and Cultural Heritage",
+                   "Cultural Heritage Materials Analysis",
+                   "Image Processing and 3D Reconstruction"
+               ],
+    "cached_at":  "2026-06-10T20:58:09"
+}

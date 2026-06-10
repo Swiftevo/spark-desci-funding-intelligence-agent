@@ -47,7 +47,7 @@ GLM-5.1 agent loop
 |-- fetch_web_resource (GitHub / website evidence check)
 |-- search_projects
 |-- compare_projects
-|-- search_academic_context (Semantic Scholar, OpenAlex fallback)
+|-- search_academic_context (Semantic Scholar, OpenAlex fallback, local cache fallback)
 |
 Structured review JSON
 |
@@ -64,11 +64,11 @@ Tools available to the agent:
 | `get_project_detail` | Get full project details by ID |
 | `fetch_web_resource` | Check GitHub repositories, Artizen pages, and project websites for public evidence signals |
 | `compare_projects` | Compare the target with related projects |
-| `search_academic_context` | Search Semantic Scholar first, then fallback to OpenAlex if Semantic Scholar is rate limited or unavailable |
+| `search_academic_context` | Search Semantic Scholar first, then fallback to OpenAlex and finally local academic metadata cache if APIs are unavailable |
 
 ## Academic Context Source
 
-The `search_academic_context` tool now uses **Semantic Scholar API** for primary academic literature retrieval and **OpenAlex API** as a fallback when Semantic Scholar is rate limited or unavailable.
+The `search_academic_context` tool now uses **Semantic Scholar API** for primary academic literature retrieval, **OpenAlex API** as a fallback when Semantic Scholar is rate limited or unavailable, and a small **local academic metadata cache** as the final fallback when both APIs fail.
 
 Key features:
 - Paper search with citation counts and field analysis
@@ -86,7 +86,7 @@ Demo caveats:
 5. Agent analysis based on retrieved literature is real, but still limited to each provider's coverage.
 ```
 
-Spark project retrieval, GLM-5.1 tool calling, Spark cross-project comparison, Semantic Scholar academic context, and OpenAlex fallback are all live.
+Spark project retrieval, GLM-5.1 tool calling, Spark cross-project comparison, Semantic Scholar academic context, OpenAlex fallback, and local academic metadata cache fallback are all live.
 
 ## Quick Start
 
@@ -200,6 +200,8 @@ Recharge or activate an API resource package in the Z.AI dashboard, then retry.
 | `fetch-web-resource.ps1` | Check public GitHub repositories and project websites for metadata-level evidence |
 | `search-semantic-scholar.ps1` | Academic context search via Semantic Scholar API |
 | `search-openalex.ps1` | Academic context search via OpenAlex API and fallback support |
+| `search-academic-cache.ps1` | Search the local academic metadata cache when live APIs are unavailable |
+| `build-academic-cache.ps1` | Build the 20-domain local academic metadata cache from OpenAlex metadata |
 
 ## Roadmap
 
@@ -252,4 +254,5 @@ Personal fields such as email, Telegram, and private reviewer comments should be
 - [Z.AI GLM-5.1 API](https://docs.z.ai/api-reference/introduction) - core LLM
 - [Semantic Scholar API](https://api.semanticscholar.org/) - academic context (live)
 - [OpenAlex API](https://developers.openalex.org/) - academic context fallback (live)
+- Local academic metadata cache - final fallback when live academic APIs are unavailable
 - [AMiner API](https://www.aminer.cn/) - academic context planned, pending API access

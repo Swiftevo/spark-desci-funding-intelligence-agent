@@ -1,0 +1,22 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W3029128488",
+    "title":  "The DAO Controversy: The Case for a New Species of Corporate Governance?",
+    "domain_category":  "governance-dao",
+    "year":  2020,
+    "authors":  [
+                    "Robbie Morrison",
+                    "Natasha C. H. L. Mazey",
+                    "Stephen C. Wingreen"
+                ],
+    "venue":  "Frontiers in Blockchain",
+    "cited_by_count":  100,
+    "doi":  "https://doi.org/10.3389/fbloc.2020.00025",
+    "is_oa":  true,
+    "oa_url":  "https://www.frontiersin.org/articles/10.3389/fbloc.2020.00025/pdf",
+    "topics":  [
+                   "Blockchain Technology Applications and Security",
+                   "FinTech, Crowdfunding, Digital Finance",
+                   "Digital Economy and Work Transformation"
+               ],
+    "cached_at":  "2026-06-10T20:57:58"
+}

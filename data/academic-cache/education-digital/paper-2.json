@@ -1,0 +1,21 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W2140190241",
+    "title":  "Data mining: concepts and techniques",
+    "domain_category":  "education-digital",
+    "year":  2012,
+    "authors":  [
+                    "Jiawei Han",
+                    "Micheline Kamber"
+                ],
+    "venue":  "Choice Reviews Online",
+    "cited_by_count":  28874,
+    "doi":  "https://doi.org/10.5860/choice.49-3305",
+    "is_oa":  false,
+    "oa_url":  null,
+    "topics":  [
+                   "Data Management and Algorithms",
+                   "Data Mining Algorithms and Applications",
+                   "Advanced Database Systems and Queries"
+               ],
+    "cached_at":  "2026-06-10T20:57:56"
+}

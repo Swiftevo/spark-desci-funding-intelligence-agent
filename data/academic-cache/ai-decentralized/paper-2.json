@@ -1,0 +1,23 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W4295951577",
+    "title":  "Multimodal biomedical AI",
+    "domain_category":  "ai-decentralized",
+    "year":  2022,
+    "authors":  [
+                    "Julián Acosta",
+                    "Guido J. Falcone",
+                    "Pranav Rajpurkar",
+                    "Eric J. Topol"
+                ],
+    "venue":  "Nature Medicine",
+    "cited_by_count":  1092,
+    "doi":  "https://doi.org/10.1038/s41591-022-01981-2",
+    "is_oa":  true,
+    "oa_url":  "https://www.nature.com/articles/s41591-022-01981-2.pdf",
+    "topics":  [
+                   "Artificial Intelligence in Healthcare and Education",
+                   "COVID-19 diagnosis using AI",
+                   "Machine Learning in Healthcare"
+               ],
+    "cached_at":  "2026-06-10T20:57:53"
+}

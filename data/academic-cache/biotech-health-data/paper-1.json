@@ -1,0 +1,23 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W1981183221",
+    "title":  "Protecting health data privacy while using residence-based environment and demographic data",
+    "domain_category":  "biotech-health-data",
+    "year":  2011,
+    "authors":  [
+                    "Sarah Rodgers",
+                    "Joanne Demmler",
+                    "Rohan Dsilva",
+                    "Ronan A Lyons"
+                ],
+    "venue":  "Health \u0026 Place",
+    "cited_by_count":  130,
+    "doi":  "https://doi.org/10.1016/j.healthplace.2011.09.006",
+    "is_oa":  false,
+    "oa_url":  null,
+    "topics":  [
+                   "Health disparities and outcomes",
+                   "Data-Driven Disease Surveillance",
+                   "Public Health Policies and Education"
+               ],
+    "cached_at":  "2026-06-10T20:57:55"
+}

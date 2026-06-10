@@ -352,7 +352,7 @@ function Invoke-FetchWebResource {
 }
 
 function Invoke-SearchAcademicContext {
-  param([string]$Query)
+  param([string]$Query, [string]$Domain)
 
   $topic = $Query.Trim()
   $encodedQuery = [Uri]::EscapeDataString($topic)
@@ -395,13 +395,29 @@ function Invoke-SearchAcademicContext {
       $openAlexResponse = Invoke-RestMethod -Uri $openAlexUri -Method Get -TimeoutSec 30
       return Process-OpenAlexResponse -Response $openAlexResponse -Topic $topic -FallbackReason $fallbackReason
     } catch {
+      Write-Host "  Fallback: OpenAlex failed. Trying local cache..." -ForegroundColor Yellow
+      $cacheScript = Join-Path $PSScriptRoot "search-academic-cache.ps1"
+      if (Test-Path -LiteralPath $cacheScript) {
+        try {
+          $cacheArgs = @("-Query", $topic, "-Limit", "3")
+          if ($Domain) {
+            $cacheArgs += @("-Domain", $Domain)
+          }
+          $cacheResult = & $cacheScript @cacheArgs | ConvertFrom-Json
+          if ($cacheResult.matched_papers -gt 0) {
+            return $cacheResult
+          }
+        } catch {
+          Write-Host "  Local cache search failed: $($_.Exception.Message)" -ForegroundColor Yellow
+        }
+      }
       return @{
-        mode = "openalex_fallback_failed"
+        mode = "all_sources_failed"
         query = $topic
-        source = "OpenAlex API (fallback)"
-        error = "Both Semantic Scholar and OpenAlex failed. Semantic Scholar: $fallbackReason. OpenAlex: $($_.Exception.Message)"
+        source = "Local Cache (fallback)"
+        error = "All academic sources failed. Semantic Scholar: $fallbackReason. OpenAlex: $($_.Exception.Message). Local cache: no match or unavailable."
         field_maturity = "needs_verification"
-        scientific_context = "Failed to retrieve academic data for '$topic' from both sources."
+        scientific_context = "Failed to retrieve academic data for '$topic' from all sources."
         credibility_questions = @(
           "What peer-reviewed or preprint literature supports the central claim?",
           "Is the proposed method novel, or mainly an application of known methods?"
@@ -720,6 +736,10 @@ $tools = @(
             type = "string"
             description = "Academic search query, e.g. 'LLM-based evaluation system for funding proposals'"
           }
+          domain = [ordered]@{
+            type = "string"
+            description = "Optional Spark project domain for local cache fallback, e.g. 'AI / Data' or 'Governance / DAO'"
+          }
         }
         required = @("query")
       }
@@ -754,7 +774,7 @@ Your workflow:
 2. If the project has a link (Artizen page) or github_path, use fetch_web_resource to verify external claims.
 3. Search for similar or related projects using search_projects to enable cross-project comparison.
 4. Compare the target project with related projects using compare_projects.
-5. Search academic context for the project's domain and key claims using search_academic_context.
+5. Search academic context for the project's domain and key claims using search_academic_context. Include the project domain when available so local cache fallback can search the right category.
 6. Synthesize all gathered evidence into a final structured review.
 
 You MUST call tools to gather information before producing your review. Do not guess or fabricate evidence.
@@ -770,8 +790,9 @@ Academic assessment is your core value-add. For each project, you must answer:
 - Gap identification: Does the project address an actual gap in literature, tooling, practice, or reviewer evidence?
 
 Academic context caution:
-- The current search_academic_context tool uses Semantic Scholar API results first, with OpenAlex fallback if Semantic Scholar is rate limited or unavailable. It does not use AMiner yet.
-- Semantic Scholar and OpenAlex results are real retrieved paper metadata, but they are not exhaustive and do not by themselves validate a project claim.
+- The current search_academic_context tool uses Semantic Scholar API results first, OpenAlex fallback second, and local cached paper metadata as a final fallback if live APIs fail. It does not use AMiner yet.
+- Semantic Scholar, OpenAlex, and local cache results are paper metadata signals, but they are not exhaustive and do not by themselves validate a project claim.
+- Local cache results are pre-cached metadata only; they are not full-text paper analysis.
 - If academic context is missing, sparse, or based on general model knowledge, label it as "needs verification" and do not present it as citation-backed evidence.
 - Only describe a claim as contradicting academic consensus when a verified source/tool result supports that. Otherwise, phrase it as "potential conflict or concern to verify."
 
@@ -909,7 +930,7 @@ while ($turn -lt $MaxTurns) {
           $toolResult = Invoke-CompareProjects -ProjectIds $ids
         }
         "search_academic_context" {
-          $toolResult = Invoke-SearchAcademicContext -Query $parsedArgs.query
+          $toolResult = Invoke-SearchAcademicContext -Query $parsedArgs.query -Domain $parsedArgs.domain
         }
         "fetch_web_resource" {
           $toolResult = Invoke-FetchWebResource -Url $parsedArgs.url

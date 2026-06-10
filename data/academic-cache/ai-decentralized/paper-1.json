@@ -1,0 +1,24 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W4402947253",
+    "title":  "Adaptive decentralized AI scheme for signal recognition of distributed sensor systems",
+    "domain_category":  "ai-decentralized",
+    "year":  2024,
+    "authors":  [
+                    "Shi-Xiong Zhang",
+                    "Hao Li",
+                    "Cunzheng Fan",
+                    "Zhichao Zeng",
+                    "Chao Xiong"
+                ],
+    "venue":  "Opto-Electronic Advances",
+    "cited_by_count":  58,
+    "doi":  "https://doi.org/10.29026/oea.2024.240119",
+    "is_oa":  true,
+    "oa_url":  "https://www.oejournal.org/oea/en/article/pdf/preview/10.29026/oea.2024.240119.pdf",
+    "topics":  [
+                   "Machine Learning and ELM",
+                   "Water Quality Monitoring Technologies",
+                   "Neural Networks and Applications"
+               ],
+    "cached_at":  "2026-06-10T20:57:53"
+}

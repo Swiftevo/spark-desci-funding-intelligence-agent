@@ -1,0 +1,21 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W2511038469",
+    "title":  "Optical Communication in Space: Challenges and Mitigation Techniques",
+    "domain_category":  "space-physics",
+    "year":  2016,
+    "authors":  [
+                    "Hemani Kaushal",
+                    "Georges Kaddoum"
+                ],
+    "venue":  "IEEE Communications Surveys \u0026 Tutorials",
+    "cited_by_count":  1793,
+    "doi":  "https://doi.org/10.1109/comst.2016.2603518",
+    "is_oa":  true,
+    "oa_url":  "https://arxiv.org/pdf/1705.10630",
+    "topics":  [
+                   "Optical Wireless Communication Technologies",
+                   "Adaptive optics and wavefront sensing",
+                   "Satellite Communication Systems"
+               ],
+    "cached_at":  "2026-06-10T20:58:04"
+}

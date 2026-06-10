@@ -1,0 +1,24 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W2027254180",
+    "title":  "‘Structure-from-Motion’ photogrammetry: A low-cost, effective tool for geoscience applications",
+    "domain_category":  "space-physics",
+    "year":  2012,
+    "authors":  [
+                    "Matthew Westoby",
+                    "James Brasington",
+                    "Neil F. Glasser",
+                    "Michael J. Hambrey",
+                    "John M. Reynolds"
+                ],
+    "venue":  "Geomorphology",
+    "cited_by_count":  3989,
+    "doi":  "https://doi.org/10.1016/j.geomorph.2012.08.021",
+    "is_oa":  true,
+    "oa_url":  "http://pure.aber.ac.uk/ws/files/4916016/Westoby_et_al._GEOMORPH_2012_Accepted.pdf",
+    "topics":  [
+                   "3D Surveying and Cultural Heritage",
+                   "Remote Sensing and LiDAR Applications",
+                   "Robotics and Sensor-Based Localization"
+               ],
+    "cached_at":  "2026-06-10T20:58:04"
+}

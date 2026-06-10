@@ -1,0 +1,24 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W2117691204",
+    "title":  "The private provision of public goods: tests of a provision point mechanism for funding green power programs",
+    "domain_category":  "governance-funding",
+    "year":  2002,
+    "authors":  [
+                    "Steven K. Rose",
+                    "Jeremy Clark",
+                    "Gregory L. Poe",
+                    "Daniel Rondeau",
+                    "William D. Schulze"
+                ],
+    "venue":  "Resource and Energy Economics",
+    "cited_by_count":  144,
+    "doi":  "https://doi.org/10.1016/s0928-7655(01)00048-3",
+    "is_oa":  false,
+    "oa_url":  null,
+    "topics":  [
+                   "Economic and Environmental Valuation",
+                   "Experimental Behavioral Economics Studies",
+                   "Water resources management and optimization"
+               ],
+    "cached_at":  "2026-06-10T20:57:59"
+}

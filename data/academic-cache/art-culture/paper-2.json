@@ -1,0 +1,23 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W2910597635",
+    "title":  "Digital Twin in Industry: State-of-the-Art",
+    "domain_category":  "art-culture",
+    "year":  2019,
+    "authors":  [
+                    "Fei Tao",
+                    "He Zhang",
+                    "Ang Liu",
+                    "A.Y.C. Nee"
+                ],
+    "venue":  "IEEE Transactions on Industrial Informatics",
+    "cited_by_count":  3786,
+    "doi":  "https://doi.org/10.1109/tii.2018.2873186",
+    "is_oa":  false,
+    "oa_url":  null,
+    "topics":  [
+                   "Digital Transformation in Industry",
+                   "Additive Manufacturing and 3D Printing Technologies",
+                   "Flexible and Reconfigurable Manufacturing Systems"
+               ],
+    "cached_at":  "2026-06-10T20:58:08"
+}

@@ -1,0 +1,21 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W2953532875",
+    "title":  "The potential for artificial intelligence in healthcare",
+    "domain_category":  "biotech-health-ai",
+    "year":  2019,
+    "authors":  [
+                    "Thomas H. Davenport",
+                    "Ravi Kalakota"
+                ],
+    "venue":  "Future Healthcare Journal",
+    "cited_by_count":  3606,
+    "doi":  "https://doi.org/10.7861/futurehosp.6-2-94",
+    "is_oa":  true,
+    "oa_url":  "https://www.rcpjournals.org/content/futurehosp/6/2/94.full.pdf",
+    "topics":  [
+                   "Artificial Intelligence in Healthcare and Education",
+                   "Machine Learning in Healthcare",
+                   "Clinical Reasoning and Diagnostic Skills"
+               ],
+    "cached_at":  "2026-06-10T20:57:54"
+}

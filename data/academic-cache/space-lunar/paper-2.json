@@ -1,0 +1,21 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W3186299794",
+    "title":  "Progress Made in Lunar In Situ Resource Utilization under NASA’s Exploration Technology and Development Program",
+    "domain_category":  "space-lunar",
+    "year":  2012,
+    "authors":  [
+                    "Gerald B. Sanders",
+                    "W. E. Larson"
+                ],
+    "venue":  "Journal of Aerospace Engineering",
+    "cited_by_count":  151,
+    "doi":  "https://doi.org/10.1061/(asce)as.1943-5525.0000208",
+    "is_oa":  false,
+    "oa_url":  null,
+    "topics":  [
+                   "Spacecraft and Cryogenic Technologies",
+                   "Planetary Science and Exploration",
+                   "Astro and Planetary Science"
+               ],
+    "cached_at":  "2026-06-10T20:58:05"
+}

@@ -27,6 +27,7 @@ Mitigations:
 - **The agent does NOT modify any data.** All tools are read-only (search, get, compare, fetch public web metadata).
 - **External access is limited** to the Z.AI API, Semantic Scholar API, OpenAlex API, GitHub API, public project websites, and the local projects.json file.
 - **Web fetching is restricted to absolute `http` / `https` URLs.** Local file URLs and unsupported schemes are rejected.
+- **Local academic cache contains metadata only.** It stores titles, authors, citation counts, DOI/OpenAlex IDs, and OA links; it does not store PDF files or full paper text.
 - **No on-chain transactions.** The agent reads Spark DeSci project metadata only.
 
 ## Failure Handling
@@ -48,7 +49,7 @@ Mitigations:
 
 ## Known Limitations
 
-1. **Academic context is real but limited.** The `search_academic_context` tool uses Semantic Scholar metadata first and OpenAlex metadata as fallback. It is useful for literature orientation, but it is not exhaustive validation and does not replace human review. AMiner integration is still planned. See [DEMO_REMARKS.md](./DEMO_REMARKS.md).
+1. **Academic context is real but limited.** The `search_academic_context` tool uses Semantic Scholar metadata first, OpenAlex metadata as fallback, and local cached metadata as a final fallback. It is useful for literature orientation, but it is not exhaustive validation and does not replace human review. AMiner integration is still planned. See [DEMO_REMARKS.md](./DEMO_REMARKS.md).
 2. **External web checks are metadata-level evidence checks.** The `fetch_web_resource` tool can confirm accessibility and GitHub repository signals, but it does not fully audit code quality, deployed demos, team identity, or security.
 3. **No cross-round funding memory.** Only Spark DeSci Season 6 data is imported.
 4. **No real-time data.** Projects.json is a static snapshot from the desci-funding-data-layer export.

@@ -1,0 +1,24 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W4399528455",
+    "title":  "Bias and Fairness in Large Language Models: A Survey",
+    "domain_category":  "ai-llm-bias",
+    "year":  2024,
+    "authors":  [
+                    "Isabel O. Gallegos",
+                    "Ryan A. Rossi",
+                    "Joe Barrow",
+                    "Md Mehrab Tanjim",
+                    "Sungchul Kim"
+                ],
+    "venue":  "Computational Linguistics",
+    "cited_by_count":  487,
+    "doi":  "https://doi.org/10.1162/coli_a_00524",
+    "is_oa":  true,
+    "oa_url":  "https://direct.mit.edu/coli/article-pdf/doi/10.1162/coli_a_00524/2381177/coli_a_00524.pdf",
+    "topics":  [
+                   "Topic Modeling",
+                   "Hate Speech and Cyberbullying Detection",
+                   "Natural Language Processing Techniques"
+               ],
+    "cached_at":  "2026-06-10T20:57:51"
+}

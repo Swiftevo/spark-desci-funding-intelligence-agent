@@ -1,0 +1,24 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W2012049797",
+    "title":  "Active dust control and mitigation technology for lunar and Martian exploration",
+    "domain_category":  "space-lunar",
+    "year":  2011,
+    "authors":  [
+                    "Carlos I. Calle",
+                    "C. R. Buhler",
+                    "Michael R. Johansen",
+                    "Michael D. Hogue",
+                    "Sarah Snyder"
+                ],
+    "venue":  "Acta Astronautica",
+    "cited_by_count":  133,
+    "doi":  "https://doi.org/10.1016/j.actaastro.2011.06.010",
+    "is_oa":  false,
+    "oa_url":  null,
+    "topics":  [
+                   "Planetary Science and Exploration",
+                   "Microfluidic and Bio-sensing Technologies",
+                   "Magnetic and Electromagnetic Effects"
+               ],
+    "cached_at":  "2026-06-10T20:58:05"
+}

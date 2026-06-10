@@ -1,0 +1,24 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W2949652322",
+    "title":  "Healthchain: A Blockchain-Based Privacy Preserving Scheme for Large-Scale Health Data",
+    "domain_category":  "biotech-health-data",
+    "year":  2019,
+    "authors":  [
+                    "Jie Xu",
+                    "Kaiping Xue",
+                    "Shaohua Li",
+                    "Hangyu Tian",
+                    "Jianan Hong"
+                ],
+    "venue":  "IEEE Internet of Things Journal",
+    "cited_by_count":  415,
+    "doi":  "https://doi.org/10.1109/jiot.2019.2923525",
+    "is_oa":  false,
+    "oa_url":  null,
+    "topics":  [
+                   "Blockchain Technology Applications and Security",
+                   "Privacy-Preserving Technologies in Data",
+                   "IoT and Edge/Fog Computing"
+               ],
+    "cached_at":  "2026-06-10T20:57:55"
+}

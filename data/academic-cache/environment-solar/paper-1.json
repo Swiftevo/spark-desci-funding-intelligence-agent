@@ -1,0 +1,21 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W2103965176",
+    "title":  "A Single-Stage Grid Connected Inverter Topology for Solar PV Systems With Maximum Power Point Tracking",
+    "domain_category":  "environment-solar",
+    "year":  2007,
+    "authors":  [
+                    "Sachin Jain",
+                    "Vivek Agarwal"
+                ],
+    "venue":  "IEEE Transactions on Power Electronics",
+    "cited_by_count":  638,
+    "doi":  "https://doi.org/10.1109/tpel.2007.904202",
+    "is_oa":  false,
+    "oa_url":  null,
+    "topics":  [
+                   "Microgrid Control and Optimization",
+                   "Multilevel Inverters and Converters",
+                   "Photovoltaic System Optimization Techniques"
+               ],
+    "cached_at":  "2026-06-10T20:58:03"
+}

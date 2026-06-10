@@ -1,0 +1,22 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W4285122660",
+    "title":  "Grid Integration Challenges and Solution Strategies for Solar PV Systems: A Review",
+    "domain_category":  "environment-solar",
+    "year":  2022,
+    "authors":  [
+                    "Md Shafiullah",
+                    "Shakir D. Ahmed",
+                    "Fahad A. Al‐Sulaiman"
+                ],
+    "venue":  "IEEE Access",
+    "cited_by_count":  423,
+    "doi":  "https://doi.org/10.1109/access.2022.3174555",
+    "is_oa":  true,
+    "oa_url":  "https://ieeexplore.ieee.org/ielx7/6287639/6514899/09773105.pdf",
+    "topics":  [
+                   "Microgrid Control and Optimization",
+                   "Optimal Power Flow Distribution",
+                   "Hybrid Renewable Energy Systems"
+               ],
+    "cached_at":  "2026-06-10T20:58:03"
+}

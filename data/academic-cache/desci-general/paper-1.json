@@ -1,0 +1,21 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W4400745143",
+    "title":  "Decentralized science (DeSci): definition, shared values, and guiding principles",
+    "domain_category":  "desci-general",
+    "year":  2024,
+    "authors":  [
+                    "Lukas Weidener",
+                    "Cord Spreckelsen"
+                ],
+    "venue":  "Frontiers in Blockchain",
+    "cited_by_count":  22,
+    "doi":  "https://doi.org/10.3389/fbloc.2024.1375763",
+    "is_oa":  true,
+    "oa_url":  "https://www.frontiersin.org/journals/blockchain/articles/10.3389/fbloc.2024.1375763/pdf",
+    "topics":  [
+                   "scientometrics and bibliometrics research",
+                   "Psychology Research and Bibliometrics",
+                   "Research Data Management Practices"
+               ],
+    "cached_at":  "2026-06-10T20:58:10"
+}

@@ -1,0 +1,22 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W2114104545",
+    "title":  "\u003ctt\u003eedgeR\u003c/tt\u003e : a Bioconductor package for differential expression analysis of digital gene expression data",
+    "domain_category":  "art-culture",
+    "year":  2009,
+    "authors":  [
+                    "Mark D. Robinson",
+                    "Davis J. McCarthy",
+                    "Gordon K. Smyth"
+                ],
+    "venue":  "Bioinformatics",
+    "cited_by_count":  44397,
+    "doi":  "https://doi.org/10.1093/bioinformatics/btp616",
+    "is_oa":  true,
+    "oa_url":  "https://academic.oup.com/bioinformatics/article-pdf/26/1/139/48851299/bioinformatics_26_1_139.pdf",
+    "topics":  [
+                   "Gene expression and cancer classification",
+                   "Single-cell and spatial transcriptomics",
+                   "Gene Regulatory Network Analysis"
+               ],
+    "cached_at":  "2026-06-10T20:58:08"
+}

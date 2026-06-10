@@ -1,0 +1,20 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W2144189317",
+    "title":  "Soil Carbon Sequestration Impacts on Global Climate Change and Food Security",
+    "domain_category":  "agriculture",
+    "year":  2004,
+    "authors":  [
+                    "Rattan Lal"
+                ],
+    "venue":  "Science",
+    "cited_by_count":  8076,
+    "doi":  "https://doi.org/10.1126/science.1097396",
+    "is_oa":  false,
+    "oa_url":  null,
+    "topics":  [
+                   "Soil Carbon and Nitrogen Dynamics",
+                   "Bioenergy crop production and management",
+                   "Peatlands and Wetlands Ecology"
+               ],
+    "cached_at":  "2026-06-10T20:58:10"
+}

@@ -1,0 +1,21 @@
+﻿{
+    "openalex_id":  "https://openalex.org/W4283738729",
+    "title":  "Blockchain and the emergence of Decentralized Autonomous Organizations (DAOs): An integrative model and research agenda",
+    "domain_category":  "governance-dao",
+    "year":  2022,
+    "authors":  [
+                    "Carlos Santana",
+                    "Laura Albareda"
+                ],
+    "venue":  "Technological Forecasting and Social Change",
+    "cited_by_count":  218,
+    "doi":  "https://doi.org/10.1016/j.techfore.2022.121806",
+    "is_oa":  true,
+    "oa_url":  "https://doi.org/10.1016/j.techfore.2022.121806",
+    "topics":  [
+                   "Blockchain Technology Applications and Security",
+                   "Auction Theory and Applications",
+                   "FinTech, Crowdfunding, Digital Finance"
+               ],
+    "cached_at":  "2026-06-10T20:57:58"
+}
