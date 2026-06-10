@@ -43,6 +43,16 @@ $academicLines = foreach ($a in $review.academic_context_results) {
   "- $a"
 }
 
+$academicComparisonLines = @()
+if ($review.academic_claim_comparison) {
+  $academicComparisonLines = foreach ($item in $review.academic_claim_comparison) {
+    $papers = @($item.related_papers) -join "; "
+    "- Claim: $($item.project_claim)`n  - Related papers: $papers`n  - Signal: $($item.paper_signal)`n  - Evidence basis: $($item.evidence_basis)`n  - Reasoning: $($item.reasoning)`n  - Limitation: $($item.limitation)"
+  }
+} else {
+  $academicComparisonLines = @("- Not available in this review output.")
+}
+
 $fundingLines = foreach ($f in $review.funding_memory_observations) {
   "- $f"
 }
@@ -91,6 +101,12 @@ $($missingLines -join "`n")
 > **Note**: Academic context uses Semantic Scholar metadata when available. It is useful for literature orientation, but it is not exhaustive validation and does not replace human review. AMiner integration is still planned.
 
 $($academicLines -join "`n")
+
+## Academic Claim Comparison
+
+> **Note**: This comparison is based on retrieved abstracts when available, or metadata only when abstracts/full text are unavailable. It is not a substitute for human literature review.
+
+$($academicComparisonLines -join "`n")
 
 ## Cross-Project Comparison
 

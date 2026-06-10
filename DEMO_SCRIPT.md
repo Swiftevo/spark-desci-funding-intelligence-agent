@@ -116,6 +116,7 @@ paper metadata
 citation counts
 field maturity
 credibility questions
+claim-to-literature comparison in the generated review
 ```
 
 If Semantic Scholar returns a rate limit, say:
@@ -134,6 +135,13 @@ Say:
 
 ```text
 The local cache stores metadata only: titles, authors, citation counts, DOI/OpenAlex IDs, and OA links. It is not a full literature review, but it keeps the review workflow resilient when live APIs are unavailable.
+```
+
+Important comparison caveat:
+
+```text
+When abstracts are available, the agent can compare project claims against paper abstracts.
+When only metadata is available, the agent marks the comparison as metadata-only and treats it as a reviewer cue, not validation.
 ```
 
 ## 6A. Show Web Evidence Check
@@ -161,7 +169,7 @@ notepad .\docs\reviewer-briefs\DSPJ-0003-reviewer-brief.md
 Say:
 
 ```text
-The reviewer brief converts agent analysis into a human-readable format: summary, claims, missing evidence, risks, and reviewer questions.
+The reviewer brief converts agent analysis into a human-readable format: summary, claims, academic claim comparison, missing evidence, risks, and reviewer questions.
 ```
 
 Important note:

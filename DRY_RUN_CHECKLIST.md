@@ -95,6 +95,15 @@ Local cache returns metadata records only.
 Do not describe local cache as full-text validation.
 ```
 
+Claim comparison check:
+
+```text
+Confirm the final agent/reviewer brief language distinguishes:
+- abstract-based comparison
+- metadata-only comparison
+- insufficient evidence
+```
+
 ## Agent Demo Paths
 
 Recorded OpenCode path:

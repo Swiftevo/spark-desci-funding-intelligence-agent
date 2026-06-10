@@ -20,7 +20,7 @@ Spark DeSci Funding Intelligence Agent uses GLM-5.1 as a long-horizon reasoning 
 2. **Public evidence check** - inspect GitHub repositories and project websites at metadata level
 3. **Related project search** - find similar projects in the same round
 4. **Cross-project comparison** - compare progress, evidence level, and risk profiles
-5. **Academic context search** - identify field maturity, prior work, and novelty questions through Semantic Scholar, OpenAlex, and local cached metadata fallback
+5. **Academic context search and claim comparison** - identify field maturity, prior work, novelty questions, and compare project claims against retrieved abstracts or metadata signals through Semantic Scholar, OpenAlex, and local cached metadata fallback
 6. **Structured review synthesis** - produce JSON with claims, evidence gaps, risks, and reviewer questions
 7. **Reviewer brief generation** - convert structured review JSON into human-readable Markdown
 
@@ -99,6 +99,7 @@ Important limitation:
 Academic context returned by the tool is Semantic Scholar, OpenAlex, or local cached paper metadata.
 Provider coverage is not exhaustive and does not prove a project claim.
 The local cache stores metadata only and does not include full paper text or PDFs.
+Claim comparison is based on retrieved abstracts when available and metadata-only signals otherwise.
 GLM-5.1 analysis based on retrieved literature still requires human review.
 The next step is adding AMiner retrieval when access is available.
 ```

@@ -14,6 +14,7 @@ Live features:
 - Paper search with citation counts and field analysis
 - Field maturity assessment (emerging/active/established)
 - Credibility questions based on retrieved literature
+- Claim-to-literature comparison based on retrieved abstracts when available, or metadata-only signals when abstracts are unavailable
 - Open access PDF links when available
 - Local metadata cache fallback when both APIs are unavailable
 
@@ -60,6 +61,7 @@ Recommended wording:
 Spark DeSci project retrieval, GLM-5.1 tool-calling, web evidence checks, and cross-project comparison are live.
 Academic context is powered by Semantic Scholar first, then OpenAlex fallback, then local metadata cache for resilience.
 Agent analysis is based on retrieved project data, public web metadata, paper metadata, citations, and field maturity signals.
+Academic claim comparison is based on retrieved abstracts when available, otherwise metadata-only signals.
 ```
 
 ## Why It Matters For The Hackathon
@@ -90,6 +92,7 @@ Do not claim that academic_context_results are peer-reviewed validation.
 Do not claim that GLM-5.1 has produced definitive scientific conclusions.
 Do not claim that website or GitHub metadata proves team identity, code quality, or production readiness.
 Do not claim that local cache papers are exhaustive, current, or full-text validated.
+Do not claim that academic claim comparison is equivalent to full literature review.
 ```
 
 Human reviewers remain the final decision-makers.

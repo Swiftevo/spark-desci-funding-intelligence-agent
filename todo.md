@@ -75,6 +75,7 @@
 - [x] Create a one-command demo path for judges
 - [x] Add public web evidence checks for GitHub repositories and project websites
 - [x] Add local academic metadata cache fallback for API outage / rate-limit resilience
+- [x] Add academic claim comparison field for abstract/metadata-based literature comparison
 - [x] Document multi-layer academic fallback in README and demo remarks
 - [ ] Complete dry run using Spark retrieval, web evidence check, academic cache check, and reviewer brief walkthrough
 - [ ] Add timestamped run archive under `outputs/runs/YYYY-MM-DD-HHMM-ProjectId/`

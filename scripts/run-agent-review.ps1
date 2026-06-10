@@ -793,6 +793,7 @@ Academic context caution:
 - The current search_academic_context tool uses Semantic Scholar API results first, OpenAlex fallback second, and local cached paper metadata as a final fallback if live APIs fail. It does not use AMiner yet.
 - Semantic Scholar, OpenAlex, and local cache results are paper metadata signals, but they are not exhaustive and do not by themselves validate a project claim.
 - Local cache results are pre-cached metadata only; they are not full-text paper analysis.
+- When abstracts are available, use them to compare the paper signal against project claims. When only metadata is available, label the comparison as metadata_only and avoid making strong support/contradiction claims.
 - If academic context is missing, sparse, or based on general model knowledge, label it as "needs verification" and do not present it as citation-backed evidence.
 - Only describe a claim as contradicting academic consensus when a verified source/tool result supports that. Otherwise, phrase it as "potential conflict or concern to verify."
 
@@ -802,6 +803,7 @@ Guidelines:
 - For risk_flags: cite the exact project claim or missing artifact that triggers the risk. Flag aspirational claims that cannot be verified. Flag potential academic-consensus conflicts only as verification targets unless verified literature is available.
 - For extracted_claims: separate verifiable claims (has artifact, demo, or evidence) from aspirational claims (future promises). Mark aspirational claims explicitly.
 - For milestone_assessment: assess whether stated progress maps to concrete, inspectable artifacts. If no milestones exist, say so explicitly.
+- For academic_claim_comparison: compare important project claims against retrieved academic papers. For each item, name the project claim, related paper titles, whether the paper signal supports / partially_supports / contradicts / is insufficient_evidence for the claim, and explain the limitation. Use "metadata_only" when only title/topic/citation metadata is available.
 
 After gathering sufficient information, produce your final review as a JSON object with these fields:
 
@@ -817,6 +819,7 @@ Required fields:
 - missing_evidence: string[]
 - academic_context_queries_for_aminer: string[] (legacy field name; include Semantic Scholar / future AMiner queries)
 - academic_context_results: string[]
+- academic_claim_comparison: array of objects with project_claim, related_papers, paper_signal, reasoning, evidence_basis, and limitation
 - cross_project_comparison: string
 - funding_memory_observations: string[]
 - risk_flags: array of objects with risk, severity, and reason
