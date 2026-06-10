@@ -146,19 +146,149 @@ function Invoke-SearchAcademicContext {
   param([string]$Query)
 
   $topic = $Query.Trim()
+  $encodedQuery = [Uri]::EscapeDataString($topic)
+
+  $fields = "title,abstract,authors,year,citationCount,influentialCitationCount,fieldsOfStudy,publicationVenue,openAccessPdf,externalIds,url"
+  $uri = "https://api.semanticscholar.org/graph/v1/paper/search?query=$encodedQuery&fields=$fields&limit=5"
+  $headers = @{}
+  if ($env:SEMANTIC_SCHOLAR_API_KEY) {
+    $headers["x-api-key"] = $env:SEMANTIC_SCHOLAR_API_KEY
+  }
+
+  try {
+    $response = Invoke-RestMethod -Uri $uri -Method Get -Headers $headers -TimeoutSec 30
+  } catch {
+    $errorMessage = $_.Exception.Message
+    if ($errorMessage -match "429") {
+      $errorMessage = "Semantic Scholar rate limit hit. Wait and retry, or set SEMANTIC_SCHOLAR_API_KEY if available."
+    }
+    return @{
+      mode = "semantic_scholar"
+      query = $topic
+      source = "Semantic Scholar API"
+      error = "API call failed: $errorMessage"
+      field_maturity = "needs_verification"
+      scientific_context = "Failed to retrieve semantic scholar data for '$topic'."
+      credibility_questions = @(
+        "What peer-reviewed or preprint literature supports the central claim?",
+        "Is the proposed method novel, or mainly an application of known methods?"
+      )
+    }
+  }
+
+  $papers = @()
+  $fieldCounts = @{}
+
+  if ($response.data -and $response.data.Count -gt 0) {
+    foreach ($paper in $response.data) {
+      $fieldsOfStudy = @($paper.fieldsOfStudy)
+      foreach ($field in $fieldsOfStudy) {
+        if ($field) {
+          if ($fieldCounts.ContainsKey($field)) {
+            $fieldCounts[$field] = $fieldCounts[$field] + 1
+          } else {
+            $fieldCounts[$field] = 1
+          }
+        }
+      }
+
+      $authorNames = @($paper.authors | ForEach-Object { $_.name } | Where-Object { $_ })
+
+      $pdfUrl = $null
+      if ($paper.openAccessPdf -and $paper.openAccessPdf.url) { $pdfUrl = $paper.openAccessPdf.url }
+
+      $doi = $null
+      if ($paper.externalIds -and $paper.externalIds.DOI) { $doi = $paper.externalIds.DOI }
+
+      $venueName = $null
+      if ($paper.publicationVenue -and $paper.publicationVenue.name) { $venueName = $paper.publicationVenue.name }
+      elseif ($paper.venue) { $venueName = $paper.venue }
+
+      $abstractPreview = $null
+      if ($paper.abstract) {
+        $abstractPreview = $paper.abstract.Substring(0, [Math]::Min(300, $paper.abstract.Length))
+        if ($paper.abstract.Length -gt 300) { $abstractPreview += "..." }
+      }
+
+      $papers += [ordered]@{
+        title = $paper.title
+        year = $paper.year
+        authors = $authorNames
+        venue = $venueName
+        citationCount = if ($null -ne $paper.citationCount) { $paper.citationCount } else { 0 }
+        influentialCitationCount = if ($null -ne $paper.influentialCitationCount) { $paper.influentialCitationCount } else { 0 }
+        fieldsOfStudy = $fieldsOfStudy
+        abstract_preview = $abstractPreview
+        openAccessPdf = $pdfUrl
+        doi = $doi
+        url = $paper.url
+      }
+    }
+  }
+
+  $totalPapers = $response.total
+  $topFields = $fieldCounts.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 3 | ForEach-Object { $_.Key }
+
+  $avgCitations = 0
+  if ($papers.Count -gt 0) {
+    $avgCitations = [Math]::Round(($papers | ForEach-Object { $_.citationCount } | Measure-Object -Average).Average, 1)
+  }
+
+  $recentPapers = @($papers | Where-Object { $_.year -and $_.year -ge 2023 })
+  $recentRatio = if ($papers.Count -gt 0) { [Math]::Round($recentPapers.Count / $papers.Count * 100, 0) } else { 0 }
+
+  $fieldMaturity = "needs_literature_check"
+  if ($totalPapers -gt 1000 -and $avgCitations -gt 50) {
+    $fieldMaturity = "established_research_area"
+  } elseif ($totalPapers -gt 100 -or $recentRatio -gt 60) {
+    $fieldMaturity = "active_research_area"
+  } elseif ($totalPapers -gt 10) {
+    $fieldMaturity = "emerging_research_area"
+  }
+
+  $highCitationPapers = @($papers | Where-Object { $_.citationCount -gt 100 } | Select-Object -First 3)
+
+  $credibilityQuestions = @(
+    "What peer-reviewed or preprint literature supports the central claim?",
+    "Is the proposed method novel, or mainly an application of known methods?"
+  )
+
+  if ($highCitationPapers.Count -gt 0) {
+    $credibilityQuestions += "Do the high-citation papers ($($highCitationPapers.Count) found) support or contradict the project's claims?"
+  }
+
+  if ($recentRatio -gt 70) {
+    $credibilityQuestions += "This is a rapidly evolving field ($recentRatio% papers from 2023+). Are the project's methods current with the latest research?"
+  }
+
+  $scientificContext = "Semantic Scholar found $totalPapers papers for '$topic'. "
+  $scientificContext += "Top fields: $($topFields -join ', '). "
+  $scientificContext += "Average citations: $avgCitations. "
+
+  if ($fieldMaturity -eq "established_research_area") {
+    $scientificContext += "This is an established research area with substantial prior work."
+  } elseif ($fieldMaturity -eq "active_research_area") {
+    $scientificContext += "This is an active research area with ongoing publications."
+  } elseif ($fieldMaturity -eq "emerging_research_area") {
+    $scientificContext += "This is an emerging research area with limited prior work."
+  } else {
+    $scientificContext += "Limited literature found. Manual literature review recommended."
+  }
 
   [ordered]@{
-    mode = "dummy_aminer"
+    mode = "semantic_scholar"
     query = $topic
-    source = "AMiner placeholder adapter"
-    note = "Replace with Semantic Scholar or AMiner API when available."
-    field_maturity = if ($topic -match "AI|LLM|Data") { "emerging_to_active" } elseif ($topic -match "Biotech|Health|Bio") { "active_research_area" } else { "needs_literature_check" }
-    scientific_context = "Academic context placeholder for '$topic'. Real version will use Semantic Scholar or AMiner for literature search, citation networks, and field maturity analysis."
-    credibility_questions = @(
-      "What peer-reviewed or preprint literature supports the central claim?",
-      "Is the proposed method novel, or mainly an application of known methods?",
-      "Are there known limitations, benchmark issues, or reproducibility concerns in this research area?"
-    )
+    source = "Semantic Scholar API"
+    total_papers_found = $totalPapers
+    papers_returned = $papers.Count
+    papers = $papers
+    field_maturity = $fieldMaturity
+    top_fields = $topFields
+    average_citations = $avgCitations
+    recent_paper_ratio = $recentRatio
+    high_citation_papers_count = $highCitationPapers.Count
+    scientific_context = $scientificContext
+    credibility_questions = $credibilityQuestions
   }
 }
 
@@ -223,7 +353,7 @@ $tools = @(
     type = "function"
     function = [ordered]@{
       name = "search_academic_context"
-      description = "Search academic literature context for a topic. Returns field maturity, scientific context, and credibility questions. Currently uses placeholder data; will be replaced with Semantic Scholar or AMiner API."
+      description = "Search academic literature context using Semantic Scholar API. Returns papers with citations, field maturity assessment, and credibility questions for verifying project claims."
       parameters = [ordered]@{
         type = "object"
         properties = [ordered]@{
@@ -241,7 +371,7 @@ $tools = @(
 $systemPrompt = @"
 You are Spark DeSci Funding Intelligence Agent, powered by GLM-5.1.
 
-You assist human reviewers for a DeSci funding round. You do NOT make final funding decisions. Your job is to reduce reviewer workload by producing structured, evidence-aware review support — especially by identifying what academic context still needs verification for the project's domain and claims.
+You assist human reviewers for a DeSci funding round. You do NOT make final funding decisions. Your job is to reduce reviewer workload by producing structured, evidence-aware review support, especially by identifying what academic context still needs verification for the project's domain and claims.
 
 Your workflow:
 1. First, get the full project detail using get_project_detail.
@@ -258,8 +388,9 @@ Academic assessment is your core value-add. For each project, you must answer:
 - Gap identification: Does the project address an actual gap in literature, tooling, practice, or reviewer evidence?
 
 Academic context caution:
-- The current search_academic_context tool is a placeholder adapter, not verified literature retrieval.
-- If academic context is based on placeholder output or general model knowledge, label it as "needs verification" and do not present it as citation-backed evidence.
+- The current search_academic_context tool uses Semantic Scholar API results, not AMiner.
+- Semantic Scholar results are real retrieved paper metadata, but they are not exhaustive and do not by themselves validate a project claim.
+- If academic context is missing, sparse, or based on general model knowledge, label it as "needs verification" and do not present it as citation-backed evidence.
 - Only describe a claim as contradicting academic consensus when a verified source/tool result supports that. Otherwise, phrase it as "potential conflict or concern to verify."
 
 Guidelines:
@@ -281,7 +412,7 @@ Required fields:
 - milestone_assessment: string[]
 - evidence_found: string[]
 - missing_evidence: string[]
-- academic_context_queries_for_aminer: string[]
+- academic_context_queries_for_aminer: string[] (legacy field name; include Semantic Scholar / future AMiner queries)
 - academic_context_results: string[]
 - cross_project_comparison: string
 - funding_memory_observations: string[]

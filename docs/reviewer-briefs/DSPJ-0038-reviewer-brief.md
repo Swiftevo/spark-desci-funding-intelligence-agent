@@ -43,7 +43,7 @@ OneHealth proposes a health identity system allowing patients to carry their med
 
 ## Academic Context
 
-> **Note**: Academic context is currently based on a placeholder adapter and GLM-5.1 general knowledge, not verified literature retrieval. See DEMO_REMARKS.md for details.
+> **Archived note**: This brief was generated before Semantic Scholar integration. Academic context in this archived artifact used the earlier placeholder adapter and should not be treated as verified literature support. New agent runs use Semantic Scholar metadata when available.
 
 - The domain of decentralized/portable health records is an active research area with substantial prior work. Personal Health Records (PHRs) have been studied for over two decades. Blockchain-based health identity and self-sovereign identity (SSI) for healthcare are emerging-to-active research fields.
 - Key prior work includes: national e-health ID systems (Estonia's e-Health, India's Ayushman Bharat), W3C Decentralized Identifiers (DIDs) applied to healthcare, HL7 FHIR-based patient data portability standards, and commercial solutions like Apple Health Records and Epic MyChart.

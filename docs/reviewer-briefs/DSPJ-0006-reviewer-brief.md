@@ -49,7 +49,7 @@ ANTS Journal proposes an art journal positioned as a 'prototype for the future o
 
 ## Academic Context
 
-> **Note**: Academic context is currently based on a placeholder adapter and GLM-5.1 general knowledge, not verified literature retrieval. See DEMO_REMARKS.md for details.
+> **Archived note**: This brief was generated before Semantic Scholar integration. Academic context in this archived artifact used the earlier placeholder adapter and should not be treated as verified literature support. New agent runs use Semantic Scholar metadata when available.
 
 - Academic context for 'art journal publishing indigenous knowledge decolonial narratives' — field maturity: needs literature check. The domain of decolonial publishing and indigenous knowledge representation is an active area of scholarly inquiry, but the proposal does not reference any specific literature, frameworks, or methodologies from this field.
 - Academic context for 'digital art publishing technology culture knowledge equity' — field maturity: needs literature check. Digital publishing for cultural equity is a growing field, but no evidence of engagement with existing platforms, models, or research is provided in the proposal.

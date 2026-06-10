@@ -47,33 +47,32 @@
 
 ## M4: Demo Preparation & Submission
 
-**Status**: In progress
+**Status**: Done
 **Priority**: High
-**Target**: 2026-06-12
+**Completed**: 2026-06-10
 
 - [x] Clean execution trace output for demo readability
 - [x] Convert `outputs/DSPJ-0003-agent-review.json` into a polished reviewer brief for the demo baseline
-- [ ] One-click demo script (single project + batch)
+- [x] One-click demo script (single project + batch)
 - [x] Update README for submission requirements
 - [x] Project proposal / documentation
-- [ ] Create `DEMO_SCRIPT.md` using the DSPJ-0003 agent trace as the 3-minute demo storyline
+- [x] Create `DEMO_SCRIPT.md` using the DSPJ-0003 agent trace as the 3-minute demo storyline
 - [x] Document safety, cost, and permission boundaries
 - [x] Clearly label academic context limitations in demo:
-  - [x] Tool-returned academic context is placeholder data.
-  - [x] GLM-5.1 analysis based on placeholder context is not real literature support.
-  - [x] Next step is replacing the placeholder with Semantic Scholar / AMiner retrieval.
+  - [x] Semantic Scholar metadata is real retrieved literature metadata, but not exhaustive validation.
+  - [x] GLM-5.1 analysis based on retrieved literature still needs human review.
+  - [x] Next step is adding AMiner retrieval when access is available.
 - [x] Add six tracked reviewer brief artifacts under `docs/reviewer-briefs/`
 - [x] Push M4 proposal and reviewer brief artifacts to GitHub
-- [ ] Final testing and polish
 
 ## M5: Final Demo Package
 
-**Status**: Next
+**Status**: In progress
 **Priority**: Critical
-**Target**: 2026-06-09 to 2026-06-12
+**Target**: 2026-06-10 to 2026-06-13
 
-- [ ] Create `DEMO_SCRIPT.md` with a 3-minute narration
-- [ ] Create a one-command demo path for judges
+- [x] Create `DEMO_SCRIPT.md` with a 3-minute narration
+- [x] Create a one-command demo path for judges
 - [ ] Add timestamped run archive under `outputs/runs/YYYY-MM-DD-HHMM-ProjectId/`
 - [ ] Preserve agent review JSON, trace JSON, and reviewer brief per archived run
 - [ ] Document archived runs as an audit trail for prompt/model/tool improvement
@@ -84,7 +83,6 @@
 
 ## Deferred (Post-Hackathon)
 
-- [ ] Semantic Scholar API integration (replace dummy academic context)
 - [ ] AMiner API integration (when access is obtained)
 - [ ] Gitcoin grant round data import (on-chain donation records)
 - [ ] Cross-round funding memory comparison

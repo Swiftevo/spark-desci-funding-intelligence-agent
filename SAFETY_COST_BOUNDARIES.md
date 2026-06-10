@@ -25,7 +25,7 @@ Mitigations:
 
 - **The agent does NOT make funding decisions.** It produces review support for human reviewers.
 - **The agent does NOT modify any data.** All tools are read-only (search, get, compare).
-- **The agent does NOT access external systems** beyond the Z.AI API and the local projects.json file.
+- **External access is limited** to the Z.AI API, Semantic Scholar API, and the local projects.json file.
 - **No on-chain transactions.** The agent reads Spark DeSci project metadata only.
 
 ## Failure Handling
@@ -47,7 +47,7 @@ Mitigations:
 
 ## Known Limitations
 
-1. **Academic context is placeholder.** The `search_academic_context` tool returns dummy data. GLM-5.1 analysis based on this is not verified literature evidence. See [DEMO_REMARKS.md](./DEMO_REMARKS.md).
+1. **Academic context is real but limited.** The `search_academic_context` tool uses Semantic Scholar metadata. It is useful for literature orientation, but it is not exhaustive validation and does not replace human review. AMiner integration is still planned. See [DEMO_REMARKS.md](./DEMO_REMARKS.md).
 2. **No cross-round funding memory.** Only Spark DeSci Season 6 data is imported.
 3. **No real-time data.** Projects.json is a static snapshot from the desci-funding-data-layer export.
 4. **Single-language.** All prompts and output are in English. Project proposals may contain other languages.

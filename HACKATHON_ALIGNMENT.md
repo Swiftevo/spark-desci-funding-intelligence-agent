@@ -27,7 +27,7 @@ The demo and README should make these signals obvious:
 ```text
 GLM-5.1 is used as the reasoning/review engine
 Spark DeSci 49-project dataset is used as real domain data
-AMiner is represented as the academic context layer
+Semantic Scholar is the live academic context layer; AMiner remains planned
 The agent performs multiple review steps
 Human reviewers remain final decision-makers
 The output reduces reviewer workload
@@ -44,7 +44,7 @@ README with setup and demo instructions
 Project proposal / pitch
 Evidence of GLM-5.1 usage
 Evidence of Spark dataset usage
-AMiner integration or adapter explanation
+Semantic Scholar integration and AMiner roadmap explanation
 Generated reviewer report example
 ```
 
@@ -56,9 +56,9 @@ Recommended 3-minute flow:
 1. Show the pain: DeSci funding reviewers must inspect many proposals and scientific claims.
 2. Show Spark dataset: 49 real DeSci projects are imported.
 3. Search a project: retrieve a relevant project from Spark DB.
-4. Run GLM-5.1 review: extract claims, risks, missing evidence, AMiner queries.
+4. Run GLM-5.1 review: extract claims, risks, missing evidence, and Semantic Scholar academic context.
 5. Show reviewer brief: human-readable output for reviewers.
-6. Explain next step: real AMiner context and cross-round memory.
+6. Explain next step: AMiner extension and cross-round memory.
 ```
 
 ## Minimum Bar Before Submission
@@ -76,8 +76,8 @@ The demo shows long-horizon workflow steps
 
 ```text
 Do not claim the system makes final funding decisions.
-Do not present dummy AMiner output as real AMiner results.
-Do not present GLM-5.1 analysis from placeholder academic context as verified literature support.
+Do not present AMiner as live.
+Do not present Semantic Scholar metadata or GLM-5.1 analysis as definitive scientific validation.
 Do not hide missing evidence or limitations.
 Do not make the project look like a generic AI summarizer.
 Do not commit API keys, local environment files, or private credentials.

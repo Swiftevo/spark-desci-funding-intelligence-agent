@@ -32,7 +32,7 @@ search-projects.ps1 / get-project-detail.ps1
 |
 run-dummy-review.ps1
 |
-search-aminer-context.ps1 placeholder
+search-semantic-scholar.ps1
 |
 reviewer brief
 ```
@@ -46,7 +46,7 @@ GLM-5.1 agent loop
 |-- get_project_detail
 |-- search_projects
 |-- compare_projects
-|-- search_academic_context placeholder
+|-- search_academic_context (Semantic Scholar API)
 |
 Structured review JSON
 |
@@ -62,21 +62,28 @@ Tools available to the agent:
 | `search_projects` | Search the 49-project Spark dataset |
 | `get_project_detail` | Get full project details by ID |
 | `compare_projects` | Compare the target with related projects |
-| `search_academic_context` | Placeholder academic context adapter; intended to be replaced by Semantic Scholar, then AMiner |
+| `search_academic_context` | Search Semantic Scholar API for academic literature context |
 
-## Academic Context Limitation
+## Academic Context Source
 
-The current `search_academic_context` tool is a placeholder adapter.
+The `search_academic_context` tool now uses **Semantic Scholar API** for real academic literature retrieval.
 
-Important demo caveats:
+Key features:
+- Paper search with citation counts and field analysis
+- Field maturity assessment (emerging/active/established)
+- Credibility questions based on retrieved literature
+- Open access PDF links when available
+
+Demo caveats:
 
 ```text
-1. Tool-returned academic context is placeholder data.
-2. GLM-5.1 analysis based on placeholder context is not real literature support.
-3. The next step is replacing the placeholder with Semantic Scholar / AMiner retrieval.
+1. Semantic Scholar API rate limits may apply. If available, set `SEMANTIC_SCHOLAR_API_KEY` for more stable access.
+2. Not all projects will have extensive literature — some topics may have limited results.
+3. The next step is adding AMiner API when access is obtained.
+4. Agent analysis based on retrieved literature is real, but still limited to Semantic Scholar's coverage.
 ```
 
-Spark project retrieval, GLM-5.1 tool calling, and Spark cross-project comparison are live. Academic context is currently workflow scaffolding, not verified citation evidence.
+Spark project retrieval, GLM-5.1 tool calling, Spark cross-project comparison, and Semantic Scholar academic context are all live.
 
 ## Quick Start
 
@@ -84,7 +91,25 @@ Set your Z.AI API key:
 
 ```powershell
 $env:ZAI_API_KEY="your_api_key"
+# Optional, if you have one:
+$env:SEMANTIC_SCHOLAR_API_KEY="your_semantic_scholar_key"
 ```
+
+### One-Click Demo
+
+Run the complete demo (single project + optional batch):
+
+```powershell
+.\scripts\demo.ps1 -ProjectId DSPJ-0003
+```
+
+With batch review:
+
+```powershell
+.\scripts\demo.ps1 -ProjectId DSPJ-0003 -BatchSize 5
+```
+
+### Step-by-Step
 
 Import Spark DeSci projects:
 
@@ -166,7 +191,7 @@ Recharge or activate an API resource package in the Z.AI dashboard, then retry.
 | `run-glm-project-review.ps1` | Single-call GLM baseline |
 | `run-agent-review.ps1` | Main GLM-5.1 function-calling agent loop |
 | `generate-reviewer-brief.ps1` | Convert agent review JSON into Markdown reviewer brief |
-| `search-aminer-context.ps1` | Placeholder now; replace with Semantic Scholar API, then AMiner API |
+| `search-semantic-scholar.ps1` | Academic context search via Semantic Scholar API |
 
 ## Roadmap
 
@@ -175,6 +200,7 @@ See [todo.md](./todo.md) for milestones and progress.
 ## Submission Docs
 
 - [PROPOSAL.md](./PROPOSAL.md)
+- [DEMO_SCRIPT.md](./DEMO_SCRIPT.md) - 3-minute demo walkthrough
 - [SAFETY_COST_BOUNDARIES.md](./SAFETY_COST_BOUNDARIES.md)
 - [DEMO_REMARKS.md](./DEMO_REMARKS.md)
 - [HACKATHON_ALIGNMENT.md](./HACKATHON_ALIGNMENT.md)
@@ -184,5 +210,5 @@ See [todo.md](./todo.md) for milestones and progress.
 
 - [desci-funding-data-layer](https://github.com/Swiftevo/desci-funding-data-layer) - 49 Spark DeSci projects
 - [Z.AI GLM-5.1 API](https://docs.z.ai/api-reference/introduction) - core LLM
-- [Semantic Scholar API](https://api.semanticscholar.org/) - academic context planned
+- [Semantic Scholar API](https://api.semanticscholar.org/) - academic context (live)
 - [AMiner API](https://www.aminer.cn/) - academic context planned, pending API access

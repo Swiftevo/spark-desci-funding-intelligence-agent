@@ -51,7 +51,7 @@ This project proposes building an LLM-based evaluation methodology for public go
 
 ## Academic Context
 
-> **Note**: Academic context is currently based on a placeholder adapter and GLM-5.1 general knowledge, not verified literature retrieval. See DEMO_REMARKS.md for details.
+> **Archived note**: This brief was generated before Semantic Scholar integration. Academic context in this archived artifact used the earlier placeholder adapter and should not be treated as verified literature support. New agent runs use Semantic Scholar metadata when available.
 
 - Field maturity: emerging_to_active — LLM-based evaluation is a hot topic but rigorous empirical validation in funding contexts is scarce
 - Key credibility questions remain: (1) What peer-reviewed or preprint literature supports the central claim? (2) Is the proposed method novel, or mainly an application of known methods? (3) Are there known limitations, benchmark issues, or reproducibility concerns?

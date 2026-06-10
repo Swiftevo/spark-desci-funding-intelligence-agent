@@ -53,7 +53,7 @@ TEENTOK is a career discovery platform targeting adolescents, combining mentorsh
 
 ## Academic Context
 
-> **Note**: Academic context is currently based on a placeholder adapter and GLM-5.1 general knowledge, not verified literature retrieval. See DEMO_REMARKS.md for details.
+> **Archived note**: This brief was generated before Semantic Scholar integration. Academic context in this archived artifact used the earlier placeholder adapter and should not be treated as verified literature support. New agent runs use Semantic Scholar metadata when available.
 
 - Career guidance interventions for adolescents is an established research field with active literature on outcomes
 - AI-enhanced career discovery platforms for youth is an emerging area — limited peer-reviewed evidence on efficacy

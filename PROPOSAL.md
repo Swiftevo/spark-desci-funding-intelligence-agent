@@ -60,7 +60,7 @@ GLM-5.1 agent loop
 |-- search_projects(query, top)
 |-- get_project_detail(project_id)
 |-- compare_projects(project_ids)
-|-- search_academic_context(query)      # placeholder adapter for now
+|-- search_academic_context(query)      # Semantic Scholar API; AMiner planned
 |
 Structured review JSON
 |
@@ -83,19 +83,20 @@ All current tools are read-only. The system does not modify project data and doe
 | Token optimization | Working |
 | Reviewer brief generation | Working via `scripts/generate-reviewer-brief.ps1` |
 | Six reviewer brief artifacts | Included in `docs/reviewer-briefs/` |
-| Academic context real API | Placeholder; Semantic Scholar / AMiner next |
+| Academic context real API | Semantic Scholar live; AMiner planned |
 | Cross-round funding memory | Post-hackathon |
 
-## Academic Context Limitation
+## Academic Context Source And Limitation
 
-The current academic context tool is a placeholder adapter.
+The current academic context tool uses Semantic Scholar API metadata.
 
 Important limitation:
 
 ```text
-Academic context returned by the tool is placeholder data.
-GLM-5.1 analysis based on placeholder context is not real literature support.
-The next step is replacing the placeholder with Semantic Scholar or AMiner retrieval.
+Academic context returned by the tool is real Semantic Scholar metadata.
+Semantic Scholar coverage is not exhaustive and does not prove a project claim.
+GLM-5.1 analysis based on retrieved literature still requires human review.
+The next step is adding AMiner retrieval when access is available.
 ```
 
 This limitation is documented in `README.md`, `DEMO_REMARKS.md`, and `SAFETY_COST_BOUNDARIES.md`.
@@ -106,7 +107,6 @@ Solo builder. Background: Web3, DeSci, and data layer design.
 
 ## Next Steps After Hackathon
 
-1. Integrate Semantic Scholar API for real literature retrieval
-2. Integrate AMiner API when access is available
-3. Import Gitcoin grant data for cross-round funding memory
-4. Add a lightweight reviewer UI
+1. Integrate AMiner API when access is available
+2. Import Gitcoin grant data for cross-round funding memory
+3. Add a lightweight reviewer UI

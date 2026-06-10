@@ -88,7 +88,7 @@ $($missingLines -join "`n")
 
 ## Academic Context
 
-> **Note**: Academic context is currently based on a placeholder adapter and GLM-5.1 general knowledge, not verified literature retrieval. See DEMO_REMARKS.md for details.
+> **Note**: Academic context uses Semantic Scholar metadata when available. It is useful for literature orientation, but it is not exhaustive validation and does not replace human review. AMiner integration is still planned.
 
 $($academicLines -join "`n")
 
