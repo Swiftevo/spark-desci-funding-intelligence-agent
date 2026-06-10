@@ -97,6 +97,8 @@ $env:SEMANTIC_SCHOLAR_API_KEY="your_semantic_scholar_key"
 
 ### One-Click Demo
 
+The recorded hackathon demo uses OpenCode with GLM-5.1 via `xixixixi/glm-5.1`; see [DEMO_SCRIPT.md](./DEMO_SCRIPT.md). The PowerShell command below is the optional direct Z.AI API path and requires `ZAI_API_KEY`.
+
 Run the complete demo (single project + optional batch):
 
 ```powershell
