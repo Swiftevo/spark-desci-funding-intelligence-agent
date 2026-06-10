@@ -44,6 +44,7 @@ User: Review project DSPJ-0003
 |
 GLM-5.1 agent loop
 |-- get_project_detail
+|-- fetch_web_resource (GitHub / website evidence check)
 |-- search_projects
 |-- compare_projects
 |-- search_academic_context (Semantic Scholar, OpenAlex fallback)
@@ -61,6 +62,7 @@ Tools available to the agent:
 |------|---------|
 | `search_projects` | Search the 49-project Spark dataset |
 | `get_project_detail` | Get full project details by ID |
+| `fetch_web_resource` | Check GitHub repositories, Artizen pages, and project websites for public evidence signals |
 | `compare_projects` | Compare the target with related projects |
 | `search_academic_context` | Search Semantic Scholar first, then fallback to OpenAlex if Semantic Scholar is rate limited or unavailable |
 
@@ -195,6 +197,7 @@ Recharge or activate an API resource package in the Z.AI dashboard, then retry.
 | `run-glm-project-review.ps1` | Single-call GLM baseline |
 | `run-agent-review.ps1` | Main GLM-5.1 function-calling agent loop |
 | `generate-reviewer-brief.ps1` | Convert agent review JSON into Markdown reviewer brief |
+| `fetch-web-resource.ps1` | Check public GitHub repositories and project websites for metadata-level evidence |
 | `search-semantic-scholar.ps1` | Academic context search via Semantic Scholar API |
 | `search-openalex.ps1` | Academic context search via OpenAlex API and fallback support |
 
