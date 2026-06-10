@@ -78,7 +78,7 @@ Demo caveats:
 
 ```text
 1. Semantic Scholar API rate limits may apply. If available, set `SEMANTIC_SCHOLAR_API_KEY` for more stable access.
-2. Not all projects will have extensive literature — some topics may have limited results.
+2. Not all projects will have extensive literature; some topics may have limited results.
 3. The next step is adding AMiner API when access is obtained.
 4. Agent analysis based on retrieved literature is real, but still limited to Semantic Scholar's coverage.
 ```
@@ -196,6 +196,38 @@ Recharge or activate an API resource package in the Z.AI dashboard, then retry.
 ## Roadmap
 
 See [todo.md](./todo.md) for milestones and progress.
+
+### Next Module: Gitcoin DeSci QF Integrity Agent
+
+The next planned module extends reviewer support from proposal and academic analysis into funding integrity review for Gitcoin DeSci quadratic funding rounds.
+
+Planned inputs:
+
+```text
+Gitcoin DeSci project applications
+Small donation history
+Project payout wallets
+Donor wallet addresses
+Transaction hashes
+Passport / sybil score fields
+```
+
+Planned checks:
+
+- Direct self-donation signal: `voter == grantAddress` or `voter == payoutAddress`
+- Project wallet as donor: a known project payout wallet donating to other projects
+- Repeated small-amount donation patterns across many projects
+- Shared donor clusters between projects
+- Passport / sybil score failure concentration by project
+- Donor-project graph export for human review
+
+Boundary:
+
+```text
+The integrity module should flag risk signals for human review.
+It must not accuse a project of misconduct without operator verification.
+Personal fields such as email, Telegram, and private reviewer comments should be redacted before public commit.
+```
 
 ## Submission Docs
 

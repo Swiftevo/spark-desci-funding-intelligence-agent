@@ -83,6 +83,17 @@
 
 ## Deferred (Post-Hackathon)
 
+- [ ] M6: Gitcoin DeSci QF Integrity Agent
+  - [ ] Import Gitcoin DeSci Round 23 project applications
+  - [ ] Import small donation history
+  - [ ] Redact personal fields before public commit (email, Telegram, private reviewer comments)
+  - [ ] Detect direct self-donation (`voter == grantAddress` / `voter == payoutAddress`)
+  - [ ] Detect project payout wallets acting as donors to other projects
+  - [ ] Detect repeated amount and broad donor patterns
+  - [ ] Detect shared donor clusters between projects
+  - [ ] Summarize passport / sybil score failure concentration by project
+  - [ ] Build donor-project graph JSON
+  - [ ] Generate funding integrity brief with human-review-safe language
 - [ ] AMiner API integration (when access is obtained)
 - [ ] Gitcoin grant round data import (on-chain donation records)
 - [ ] Cross-round funding memory comparison
