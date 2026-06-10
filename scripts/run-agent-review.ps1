@@ -148,31 +148,53 @@ function Invoke-SearchAcademicContext {
   $topic = $Query.Trim()
   $encodedQuery = [Uri]::EscapeDataString($topic)
 
-  $fields = "title,abstract,authors,year,citationCount,influentialCitationCount,fieldsOfStudy,publicationVenue,openAccessPdf,externalIds,url"
-  $uri = "https://api.semanticscholar.org/graph/v1/paper/search?query=$encodedQuery&fields=$fields&limit=5"
+  $semanticScholarFields = "title,abstract,authors,year,citationCount,influentialCitationCount,fieldsOfStudy,publicationVenue,openAccessPdf,externalIds,url"
+  $semanticScholarUri = "https://api.semanticscholar.org/graph/v1/paper/search?query=$encodedQuery&fields=$semanticScholarFields&limit=5"
+
   $headers = @{}
   if ($env:SEMANTIC_SCHOLAR_API_KEY) {
     $headers["x-api-key"] = $env:SEMANTIC_SCHOLAR_API_KEY
   }
 
+  $useOpenAlexFallback = $false
+  $fallbackReason = $null
+
   try {
-    $response = Invoke-RestMethod -Uri $uri -Method Get -Headers $headers -TimeoutSec 30
+    $response = Invoke-RestMethod -Uri $semanticScholarUri -Method Get -Headers $headers -TimeoutSec 30
   } catch {
     $errorMessage = $_.Exception.Message
     if ($errorMessage -match "429") {
-      $errorMessage = "Semantic Scholar rate limit hit. Wait and retry, or set SEMANTIC_SCHOLAR_API_KEY if available."
+      $useOpenAlexFallback = $true
+      $fallbackReason = "Semantic Scholar rate limit (429). Falling back to OpenAlex."
+    } else {
+      $useOpenAlexFallback = $true
+      $fallbackReason = "Semantic Scholar error: $errorMessage. Falling back to OpenAlex."
     }
-    return @{
-      mode = "semantic_scholar"
-      query = $topic
-      source = "Semantic Scholar API"
-      error = "API call failed: $errorMessage"
-      field_maturity = "needs_verification"
-      scientific_context = "Failed to retrieve semantic scholar data for '$topic'."
-      credibility_questions = @(
-        "What peer-reviewed or preprint literature supports the central claim?",
-        "Is the proposed method novel, or mainly an application of known methods?"
-      )
+  }
+
+  if ($useOpenAlexFallback) {
+    Write-Host "  Fallback: $fallbackReason" -ForegroundColor Yellow
+    $openAlexUri = "https://api.openalex.org/works?search=$encodedQuery&per_page=5"
+    if ($env:OPENALEX_API_KEY) {
+      $openAlexUri += "&api_key=$($env:OPENALEX_API_KEY)"
+    }
+
+    try {
+      $openAlexResponse = Invoke-RestMethod -Uri $openAlexUri -Method Get -TimeoutSec 30
+      return Process-OpenAlexResponse -Response $openAlexResponse -Topic $topic -FallbackReason $fallbackReason
+    } catch {
+      return @{
+        mode = "openalex_fallback_failed"
+        query = $topic
+        source = "OpenAlex API (fallback)"
+        error = "Both Semantic Scholar and OpenAlex failed. Semantic Scholar: $fallbackReason. OpenAlex: $($_.Exception.Message)"
+        field_maturity = "needs_verification"
+        scientific_context = "Failed to retrieve academic data for '$topic' from both sources."
+        credibility_questions = @(
+          "What peer-reviewed or preprint literature supports the central claim?",
+          "Is the proposed method novel, or mainly an application of known methods?"
+        )
+      }
     }
   }
 
@@ -292,6 +314,146 @@ function Invoke-SearchAcademicContext {
   }
 }
 
+function Process-OpenAlexResponse {
+  param($Response, [string]$Topic, [string]$FallbackReason)
+
+  $papers = @()
+  $fieldCounts = @{}
+
+  if ($Response.results -and $Response.results.Count -gt 0) {
+    foreach ($work in $Response.results) {
+      $topics = @()
+      if ($work.topics) {
+        $topics = @($work.topics | ForEach-Object { $_.display_name } | Where-Object { $_ } | Select-Object -First 3)
+        foreach ($topicName in $topics) {
+          if ($fieldCounts.ContainsKey($topicName)) {
+            $fieldCounts[$topicName] = $fieldCounts[$topicName] + 1
+          } else {
+            $fieldCounts[$topicName] = 1
+          }
+        }
+      }
+
+      $authorNames = @()
+      if ($work.authorships) {
+        $authorNames = @($work.authorships | ForEach-Object { $_.author.display_name } | Where-Object { $_ } | Select-Object -First 5)
+      }
+
+      $venueName = $null
+      if ($work.primary_location -and $work.primary_location.source) {
+        $venueName = $work.primary_location.source.display_name
+      }
+
+      $doi = $null
+      if ($work.doi) {
+        $doi = $work.doi -replace "^https://doi.org/", ""
+      }
+
+      $openAccessUrl = $null
+      if ($work.open_access -and $work.open_access.oa_url) {
+        $openAccessUrl = $work.open_access.oa_url
+      }
+
+      $abstract = $null
+      if ($work.abstract_inverted_index) {
+        $tokens = @()
+        foreach ($property in $work.abstract_inverted_index.PSObject.Properties) {
+          foreach ($position in @($property.Value)) {
+            $tokens += [pscustomobject]@{ position = [int]$position; token = $property.Name }
+          }
+        }
+        $abstractText = (($tokens | Sort-Object position | Select-Object -First 60 | ForEach-Object { $_.token }) -join " ")
+        if ($abstractText) {
+          $abstract = $abstractText
+          if ($tokens.Count -gt 60) { $abstract += "..." }
+        }
+      }
+
+      $papers += [ordered]@{
+        title = $work.title
+        display_name = $work.display_name
+        year = $work.publication_year
+        authors = $authorNames
+        venue = $venueName
+        citationCount = if ($null -ne $work.cited_by_count) { $work.cited_by_count } else { 0 }
+        is_oa = $work.open_access.is_oa
+        oa_url = $openAccessUrl
+        doi = $doi
+        topics = $topics
+        abstract_preview = $abstract
+        url = $work.id
+      }
+    }
+  }
+
+  $totalWorks = $Response.meta.count
+  $topFields = $fieldCounts.GetEnumerator() | Sort-Object Value -Descending | Select-Object -First 3 | ForEach-Object { $_.Key }
+
+  $avgCitations = 0
+  if ($papers.Count -gt 0) {
+    $avgCitations = [Math]::Round(($papers | ForEach-Object { $_.citationCount } | Measure-Object -Average).Average, 1)
+  }
+
+  $recentPapers = @($papers | Where-Object { $_.year -and $_.year -ge 2023 })
+  $recentRatio = if ($papers.Count -gt 0) { [Math]::Round($recentPapers.Count / $papers.Count * 100, 0) } else { 0 }
+
+  $fieldMaturity = "needs_literature_check"
+  if ($totalWorks -gt 10000 -and $avgCitations -gt 30) {
+    $fieldMaturity = "established_research_area"
+  } elseif ($totalWorks -gt 1000 -or $recentRatio -gt 60) {
+    $fieldMaturity = "active_research_area"
+  } elseif ($totalWorks -gt 100) {
+    $fieldMaturity = "emerging_research_area"
+  }
+
+  $highCitationPapers = @($papers | Where-Object { $_.citationCount -gt 50 } | Select-Object -First 3)
+
+  $credibilityQuestions = @(
+    "What peer-reviewed or preprint literature supports the central claim?",
+    "Is the proposed method novel, or mainly an application of known methods?"
+  )
+
+  if ($highCitationPapers.Count -gt 0) {
+    $credibilityQuestions += "Do the high-citation papers ($($highCitationPapers.Count) found) support or contradict the project's claims?"
+  }
+
+  if ($recentRatio -gt 70) {
+    $credibilityQuestions += "This is a rapidly evolving field ($recentRatio% papers from 2023+). Are the project's methods current with the latest research?"
+  }
+
+  $scientificContext = "OpenAlex found $totalWorks works for '$Topic' (fallback from Semantic Scholar). "
+  $scientificContext += "Top topics: $($topFields -join ', '). "
+  $scientificContext += "Average citations: $avgCitations. "
+  $scientificContext += "Recent activity: $recentRatio% papers from 2023+. "
+
+  if ($fieldMaturity -eq "established_research_area") {
+    $scientificContext += "This is an established research area with substantial prior work."
+  } elseif ($fieldMaturity -eq "active_research_area") {
+    $scientificContext += "This is an active research area with ongoing publications."
+  } elseif ($fieldMaturity -eq "emerging_research_area") {
+    $scientificContext += "This is an emerging research area with limited prior work."
+  } else {
+    $scientificContext += "Limited literature found. Manual literature review recommended."
+  }
+
+  [ordered]@{
+    mode = "openalex_fallback"
+    query = $Topic
+    source = "OpenAlex API"
+    fallback_reason = $FallbackReason
+    total_works_found = $totalWorks
+    works_returned = $papers.Count
+    papers = $papers
+    field_maturity = $fieldMaturity
+    top_topics = $topFields
+    average_citations = $avgCitations
+    recent_paper_ratio = $recentRatio
+    high_citation_papers_count = $highCitationPapers.Count
+    scientific_context = $scientificContext
+    credibility_questions = $credibilityQuestions
+  }
+}
+
 $tools = @(
   [ordered]@{
     type = "function"
@@ -353,7 +515,7 @@ $tools = @(
     type = "function"
     function = [ordered]@{
       name = "search_academic_context"
-      description = "Search academic literature context using Semantic Scholar API. Returns papers with citations, field maturity assessment, and credibility questions for verifying project claims."
+      description = "Search academic literature context. Tries Semantic Scholar first, falls back to OpenAlex if rate limited. Returns papers with citations, field maturity assessment, and credibility questions for verifying project claims."
       parameters = [ordered]@{
         type = "object"
         properties = [ordered]@{
@@ -388,8 +550,8 @@ Academic assessment is your core value-add. For each project, you must answer:
 - Gap identification: Does the project address an actual gap in literature, tooling, practice, or reviewer evidence?
 
 Academic context caution:
-- The current search_academic_context tool uses Semantic Scholar API results, not AMiner.
-- Semantic Scholar results are real retrieved paper metadata, but they are not exhaustive and do not by themselves validate a project claim.
+- The current search_academic_context tool uses Semantic Scholar API results first, with OpenAlex fallback if Semantic Scholar is rate limited or unavailable. It does not use AMiner yet.
+- Semantic Scholar and OpenAlex results are real retrieved paper metadata, but they are not exhaustive and do not by themselves validate a project claim.
 - If academic context is missing, sparse, or based on general model knowledge, label it as "needs verification" and do not present it as citation-backed evidence.
 - Only describe a claim as contradicting academic consensus when a verified source/tool result supports that. Otherwise, phrase it as "potential conflict or concern to verify."
 

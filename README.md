@@ -46,7 +46,7 @@ GLM-5.1 agent loop
 |-- get_project_detail
 |-- search_projects
 |-- compare_projects
-|-- search_academic_context (Semantic Scholar API)
+|-- search_academic_context (Semantic Scholar, OpenAlex fallback)
 |
 Structured review JSON
 |
@@ -62,11 +62,11 @@ Tools available to the agent:
 | `search_projects` | Search the 49-project Spark dataset |
 | `get_project_detail` | Get full project details by ID |
 | `compare_projects` | Compare the target with related projects |
-| `search_academic_context` | Search Semantic Scholar API for academic literature context |
+| `search_academic_context` | Search Semantic Scholar first, then fallback to OpenAlex if Semantic Scholar is rate limited or unavailable |
 
 ## Academic Context Source
 
-The `search_academic_context` tool now uses **Semantic Scholar API** for real academic literature retrieval.
+The `search_academic_context` tool now uses **Semantic Scholar API** for primary academic literature retrieval and **OpenAlex API** as a fallback when Semantic Scholar is rate limited or unavailable.
 
 Key features:
 - Paper search with citation counts and field analysis
@@ -78,12 +78,13 @@ Demo caveats:
 
 ```text
 1. Semantic Scholar API rate limits may apply. If available, set `SEMANTIC_SCHOLAR_API_KEY` for more stable access.
-2. Not all projects will have extensive literature; some topics may have limited results.
-3. The next step is adding AMiner API when access is obtained.
-4. Agent analysis based on retrieved literature is real, but still limited to Semantic Scholar's coverage.
+2. OpenAlex fallback is available. If available, set `OPENALEX_API_KEY` for higher free daily usage.
+3. Not all projects will have extensive literature; some topics may have limited results.
+4. The next step is adding AMiner API when access is obtained.
+5. Agent analysis based on retrieved literature is real, but still limited to each provider's coverage.
 ```
 
-Spark project retrieval, GLM-5.1 tool calling, Spark cross-project comparison, and Semantic Scholar academic context are all live.
+Spark project retrieval, GLM-5.1 tool calling, Spark cross-project comparison, Semantic Scholar academic context, and OpenAlex fallback are all live.
 
 ## Quick Start
 
@@ -93,6 +94,7 @@ Set your Z.AI API key:
 $env:ZAI_API_KEY="your_api_key"
 # Optional, if you have one:
 $env:SEMANTIC_SCHOLAR_API_KEY="your_semantic_scholar_key"
+$env:OPENALEX_API_KEY="your_openalex_key"
 ```
 
 ### One-Click Demo
@@ -194,6 +196,7 @@ Recharge or activate an API resource package in the Z.AI dashboard, then retry.
 | `run-agent-review.ps1` | Main GLM-5.1 function-calling agent loop |
 | `generate-reviewer-brief.ps1` | Convert agent review JSON into Markdown reviewer brief |
 | `search-semantic-scholar.ps1` | Academic context search via Semantic Scholar API |
+| `search-openalex.ps1` | Academic context search via OpenAlex API and fallback support |
 
 ## Roadmap
 
@@ -245,4 +248,5 @@ Personal fields such as email, Telegram, and private reviewer comments should be
 - [desci-funding-data-layer](https://github.com/Swiftevo/desci-funding-data-layer) - 49 Spark DeSci projects
 - [Z.AI GLM-5.1 API](https://docs.z.ai/api-reference/introduction) - core LLM
 - [Semantic Scholar API](https://api.semanticscholar.org/) - academic context (live)
+- [OpenAlex API](https://developers.openalex.org/) - academic context fallback (live)
 - [AMiner API](https://www.aminer.cn/) - academic context planned, pending API access

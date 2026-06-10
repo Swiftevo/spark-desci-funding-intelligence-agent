@@ -59,7 +59,7 @@
 - [x] Create `DEMO_SCRIPT.md` using the DSPJ-0003 agent trace as the 3-minute demo storyline
 - [x] Document safety, cost, and permission boundaries
 - [x] Clearly label academic context limitations in demo:
-  - [x] Semantic Scholar metadata is real retrieved literature metadata, but not exhaustive validation.
+  - [x] Semantic Scholar and OpenAlex metadata are real retrieved literature metadata, but not exhaustive validation.
   - [x] GLM-5.1 analysis based on retrieved literature still needs human review.
   - [x] Next step is adding AMiner retrieval when access is available.
 - [x] Add six tracked reviewer brief artifacts under `docs/reviewer-briefs/`

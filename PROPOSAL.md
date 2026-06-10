@@ -60,7 +60,7 @@ GLM-5.1 agent loop
 |-- search_projects(query, top)
 |-- get_project_detail(project_id)
 |-- compare_projects(project_ids)
-|-- search_academic_context(query)      # Semantic Scholar API; AMiner planned
+|-- search_academic_context(query)      # Semantic Scholar API; OpenAlex fallback; AMiner planned
 |
 Structured review JSON
 |
@@ -83,18 +83,18 @@ All current tools are read-only. The system does not modify project data and doe
 | Token optimization | Working |
 | Reviewer brief generation | Working via `scripts/generate-reviewer-brief.ps1` |
 | Six reviewer brief artifacts | Included in `docs/reviewer-briefs/` |
-| Academic context real API | Semantic Scholar live; AMiner planned |
+| Academic context real API | Semantic Scholar live; OpenAlex fallback live; AMiner planned |
 | Cross-round funding memory | Post-hackathon |
 
 ## Academic Context Source And Limitation
 
-The current academic context tool uses Semantic Scholar API metadata.
+The current academic context tool uses Semantic Scholar API metadata with OpenAlex fallback.
 
 Important limitation:
 
 ```text
-Academic context returned by the tool is real Semantic Scholar metadata.
-Semantic Scholar coverage is not exhaustive and does not prove a project claim.
+Academic context returned by the tool is real Semantic Scholar or OpenAlex metadata.
+Provider coverage is not exhaustive and does not prove a project claim.
 GLM-5.1 analysis based on retrieved literature still requires human review.
 The next step is adding AMiner retrieval when access is available.
 ```
