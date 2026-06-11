@@ -19,6 +19,24 @@ https://github.com/Swiftevo/spark-desci-funding-intelligence-agent
 - 工作流程對應真實 DeSci funding review 痛點
 - Demo 可在 Windows PowerShell 中執行
 
+## 真實場景與資料來源
+
+本專案以 [Spark DeSci Fund for Radical Researchers](https://artizen.fund/index/mf/spark-desci-fund-for-radical-researchers?season=6) 作為實際場景。這是一個正在 Artizen.fund 平台舉辦的 DeSci funding round，目前有超過五十個 DeSci 項目參與。
+
+Funding round 的人類評審通常面對三個問題：
+
+- **時間投入高**：每個項目都需要閱讀 proposal、網站、GitHub、團隊背景與外部 evidence。
+- **知識短板明顯**：DeSci 項目橫跨 AI、biotech、open science、health、climate、DAO governance、education、culture 等領域，單一評審很難同時掌握所有學術背景。
+- **橫向比較困難**：評審不只需要看單一項目，還需要比較同一輪 funding round 裡不同項目的成熟度、重複性、風險與 evidence quality。
+
+這個 agent 正是針對以上問題設計，提供三個評審維度：
+
+- **項目本身評審**：抽取 claims、milestones、evidence、missing evidence、risk flags 與 reviewer questions。
+- **垂直學術維度**：透過 Semantic Scholar、OpenAlex 與本地 academic metadata cache，為項目補上學術背景、field maturity、新穎性與可驗證性問題。
+- **橫向同輪比較**：使用 Spark DeSci database 中的 49 個已整理項目，讓 agent 能比較相近項目的定位、domain、project type 與 funding round context。
+
+需要特別說明的是：這 49 個 Spark projects **不是自動從 Artizen 官方網站爬取**。Artizen 平台有防爬蟲與動態頁面限制，因此本專案使用另一個資料層項目 [Swiftevo/desci-funding-data-layer](https://github.com/Swiftevo/desci-funding-data-layer) 提供的資料。該 data layer 以 Markdown 形式整理 Spark DeSci funding round 項目，並已完成基本分類、清洗與結構化處理，讓本 agent 可以專注在 reviewer intelligence workflow。
+
 ## 架構
 
 ### 目前的 Scripted Pipeline
@@ -261,9 +279,14 @@ Integrity module 只標記 risk signals 供人類審查。
 - [HACKATHON_ALIGNMENT.md](./HACKATHON_ALIGNMENT.md)
 - [DELIVERY_CHECKLIST.md](./DELIVERY_CHECKLIST.md)
 
+## 致謝
+
+特別感謝 [Swen 導師](https://x.com/SwenChan) 在本專案過程中的全程協助，以及 [冬天的馬鈴薯老師](https://x.com/0xMalingshu) 提供的指導意見。
+
 ## Data Sources
 
-- [desci-funding-data-layer](https://github.com/Swiftevo/desci-funding-data-layer) - 49 Spark DeSci projects
+- [Spark DeSci Fund for Radical Researchers on Artizen](https://artizen.fund/index/mf/spark-desci-fund-for-radical-researchers?season=6) - active DeSci funding round context
+- [desci-funding-data-layer](https://github.com/Swiftevo/desci-funding-data-layer) - cleaned and categorized Markdown data for 49 Spark DeSci projects
 - [Z.AI GLM-5.1 API](https://docs.z.ai/api-reference/introduction) - core LLM
 - [Semantic Scholar API](https://api.semanticscholar.org/) - live academic context
 - [OpenAlex API](https://developers.openalex.org/) - live academic fallback
@@ -294,6 +317,24 @@ Core evaluation signals:
 - The agent uses planning and tool calling, not one-shot summarization
 - The workflow addresses a real DeSci funding review pain point
 - The demo is runnable from PowerShell
+
+## Real-World Context And Data Source
+
+This project is built around the [Spark DeSci Fund for Radical Researchers](https://artizen.fund/index/mf/spark-desci-fund-for-radical-researchers?season=6), an active DeSci funding round on Artizen.fund with more than fifty participating DeSci projects.
+
+Human reviewers in this type of funding round face three recurring problems:
+
+- **High time cost**: every project can require reading the proposal, website, GitHub, team background, and external evidence.
+- **Knowledge gaps**: DeSci projects span AI, biotech, open science, health, climate, DAO governance, education, culture, and other domains. A single reviewer cannot be an expert in every field.
+- **Difficult cross-project comparison**: reviewers need to compare projects within the same round, not only assess each proposal in isolation.
+
+The agent addresses these problems through three review dimensions:
+
+- **Project-level review**: extracts claims, milestones, evidence, missing evidence, risk flags, and reviewer questions.
+- **Vertical academic context**: uses Semantic Scholar, OpenAlex, and local academic metadata cache to add field maturity, novelty, literature alignment, and verifiability questions.
+- **Horizontal round comparison**: uses the 49 cleaned Spark DeSci projects to compare related projects by domain, project type, positioning, and funding round context.
+
+Important data note: the 49 Spark projects were **not scraped directly from the Artizen official website**. The Artizen platform uses anti-scraping and dynamic-page protections, so this project uses the [Swiftevo/desci-funding-data-layer](https://github.com/Swiftevo/desci-funding-data-layer) repository as the structured data source. That data layer provides cleaned and categorized Markdown records for 49 Spark DeSci projects, allowing this agent to focus on the reviewer intelligence workflow.
 
 ## Architecture
 
@@ -529,9 +570,14 @@ Personal fields such as email, Telegram, and private reviewer comments should be
 - [HACKATHON_ALIGNMENT.md](./HACKATHON_ALIGNMENT.md)
 - [DELIVERY_CHECKLIST.md](./DELIVERY_CHECKLIST.md)
 
+## Acknowledgements
+
+Special thanks to [Swen](https://x.com/SwenChan) for continuous support throughout the project, and to [冬天的馬鈴薯老師](https://x.com/0xMalingshu) for guidance and feedback.
+
 ## Data Sources
 
-- [desci-funding-data-layer](https://github.com/Swiftevo/desci-funding-data-layer) - 49 Spark DeSci projects
+- [Spark DeSci Fund for Radical Researchers on Artizen](https://artizen.fund/index/mf/spark-desci-fund-for-radical-researchers?season=6) - active DeSci funding round context
+- [desci-funding-data-layer](https://github.com/Swiftevo/desci-funding-data-layer) - cleaned and categorized Markdown data for 49 Spark DeSci projects
 - [Z.AI GLM-5.1 API](https://docs.z.ai/api-reference/introduction) - core LLM
 - [Semantic Scholar API](https://api.semanticscholar.org/) - academic context (live)
 - [OpenAlex API](https://developers.openalex.org/) - academic context fallback (live)
