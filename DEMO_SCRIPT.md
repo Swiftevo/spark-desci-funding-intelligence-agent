@@ -175,8 +175,7 @@ The reviewer brief converts agent analysis into a human-readable format: summary
 Important note:
 
 ```text
-The checked-in reviewer briefs are archived demo artifacts generated before Semantic Scholar integration.
-New runs use Semantic Scholar metadata when available.
+The checked-in reviewer briefs are demo artifacts. Current agent runs support Semantic Scholar, OpenAlex fallback, and local academic metadata cache when available.
 ```
 
 ## 8. Explain Current Boundaries

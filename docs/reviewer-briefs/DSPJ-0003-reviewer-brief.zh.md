@@ -53,7 +53,7 @@
 
 ## 學術背景
 
-> **存檔說明**：這份 brief 是在 Semantic Scholar 整合前產生的舊版 demo artifact。當時的學術背景來自較早期的 placeholder adapter，因此不應被視為已驗證的文獻支持。新的 agent run 會在可用時使用 Semantic Scholar metadata。
+> **學術檢索說明**：目前 agent 已支援三層學術檢索：Semantic Scholar、OpenAlex fallback，以及本地 academic metadata cache。這份 tracked reviewer brief 是 demo artifact，學術內容應被視為 reviewer support，而不是完整或決定性的文獻驗證。若重新執行 agent，新的輸出會在可用時使用 Semantic Scholar / OpenAlex / local cache metadata。
 
 - 領域成熟度：emerging_to_active。LLM-based evaluation 是熱門方向，但在 funding context 中仍缺乏嚴謹的實證驗證。
 - 仍需回答的可信度問題包括：

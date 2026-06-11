@@ -48,7 +48,7 @@ Mussa Coral Fest is a Media/Narrative project in the Ocean/Marine domain that pr
 
 ## Academic Context
 
-> **Archived note**: This brief was generated before Semantic Scholar integration. Academic context in this archived artifact used the earlier placeholder adapter and should not be treated as verified literature support. New agent runs use Semantic Scholar metadata when available.
+> **Academic retrieval note**: The current agent supports a three-layer academic retrieval path: Semantic Scholar, OpenAlex fallback, and local academic metadata cache. This tracked reviewer brief is a demo artifact; its academic context should be treated as reviewer support, not complete or definitive literature validation. New agent runs use Semantic Scholar / OpenAlex / local cache metadata when available.
 
 - Field maturity for 'ocean festival cultural engagement coral reef conservation community building': needs_literature_check — the intersection of cultural festivals and marine conservation outcomes is under-studied; impact measurement frameworks are not well established
 - Field maturity for 'Web3 blockchain digital collectibles cultural preservation marine conservation': emerging_to_active — blockchain for cultural heritage is an active research area, but application to marine conservation specifically is novel and largely unproven

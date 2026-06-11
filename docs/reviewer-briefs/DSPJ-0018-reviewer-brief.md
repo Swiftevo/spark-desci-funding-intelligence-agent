@@ -43,7 +43,7 @@ Shapeshifters proposes a transmedia storytelling experience that aims to 'realig
 
 ## Academic Context
 
-> **Archived note**: This brief was generated before Semantic Scholar integration. Academic context in this archived artifact used the earlier placeholder adapter and should not be treated as verified literature support. New agent runs use Semantic Scholar metadata when available.
+> **Academic retrieval note**: The current agent supports a three-layer academic retrieval path: Semantic Scholar, OpenAlex fallback, and local academic metadata cache. This tracked reviewer brief is a demo artifact; its academic context should be treated as reviewer support, not complete or definitive literature validation. New agent runs use Semantic Scholar / OpenAlex / local cache metadata when available.
 
 - Transmedia storytelling is an established academic field (Jenkins, 2006+) with literature on narrative spread and audience engagement, but evidence for measurable cultural change or depolarization effects is limited and contested.
 - Generative AI for memetic content is an emerging-to-active research area; no peer-reviewed evidence supports the claim that AI-generated 'memetic viruses' can reliably influence cultural narratives or solve metacrises.
