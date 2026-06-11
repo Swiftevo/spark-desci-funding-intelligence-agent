@@ -176,6 +176,7 @@ Current tracked demo briefs:
 
 ```text
 DSPJ-0003-reviewer-brief.md
+DSPJ-0003-reviewer-brief.zh.md
 DSPJ-0006-reviewer-brief.md
 DSPJ-0007-reviewer-brief.md
 DSPJ-0018-reviewer-brief.md
