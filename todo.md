@@ -91,9 +91,12 @@
 
 - [ ] M6: Gitcoin DeSci QF Integrity Agent
   - [x] Draft `docs/GITCOIN_GR23_QF_INTEGRITY_MODULE_DESIGN.md`
-  - [ ] Import Gitcoin DeSci Round 23 project applications
-  - [ ] Import small donation history
-  - [ ] Redact personal fields before public commit (email, Telegram, private reviewer comments)
+  - [x] Create `scripts/import-gr23-data.ps1` for local-only import and redaction
+  - [x] Import Gitcoin DeSci Round 23 project applications locally
+  - [x] Import small donation history locally
+  - [x] Generate redacted local JSON and private redaction map under ignored `outputs/gr23-integrity/`
+  - [x] Verify redacted outputs do not contain raw wallet addresses or transaction hashes
+  - [ ] Redact personal fields before any future public data commit (email, Telegram, private reviewer comments)
   - [ ] Detect direct self-donation (`voter == grantAddress` / `voter == payoutAddress`)
   - [ ] Detect project payout wallets acting as donors to other projects
   - [ ] Detect repeated amount and broad donor patterns

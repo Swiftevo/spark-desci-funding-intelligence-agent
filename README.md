@@ -233,6 +233,7 @@ DSPJ-0038-reviewer-brief.md
 | `search-openalex.ps1` | OpenAlex academic fallback |
 | `search-academic-cache.ps1` | 即時 API 不可用時搜尋本地 academic metadata cache |
 | `build-academic-cache.ps1` | 從 OpenAlex metadata 建立 20-domain local academic cache |
+| `import-gr23-data.ps1` | 本地匯入 Gitcoin GR23 project / donation TXT，產生 redacted outputs 與 private local map |
 
 ## Roadmap
 
@@ -271,6 +272,29 @@ Integrity module 只標記 risk signals 供人類審查。
 未經 operator verification，不應指控任何項目不當行為。
 公開 commit 前必須 redacted email、Telegram、private reviewer comments 等個人欄位。
 ```
+
+M1 本地匯入與 redaction 已開始：
+
+```powershell
+.\scripts\import-gr23-data.ps1
+```
+
+預設讀取桌面的 GR23 project information 與 small donation TXT，輸出至：
+
+```text
+outputs/gr23-integrity/
+```
+
+目前本地測試結果：
+
+```text
+Projects: 21
+Donations: 274
+Unique donors: 80
+Failed threshold donations: 91
+```
+
+注意：`outputs/` 已被 `.gitignore` 排除；private redaction map 不應公開 commit。
 
 ## Submission Docs
 
@@ -526,6 +550,7 @@ Recharge or activate an API resource package in the Z.AI dashboard, then retry.
 | `search-openalex.ps1` | Academic context search via OpenAlex API and fallback support |
 | `search-academic-cache.ps1` | Search the local academic metadata cache when live APIs are unavailable |
 | `build-academic-cache.ps1` | Build the 20-domain local academic metadata cache from OpenAlex metadata |
+| `import-gr23-data.ps1` | Locally import Gitcoin GR23 project / donation TXT files and generate redacted outputs plus a private local map |
 
 ## Roadmap
 
@@ -564,6 +589,29 @@ The integrity module should flag risk signals for human review.
 It must not accuse a project of misconduct without operator verification.
 Personal fields such as email, Telegram, and private reviewer comments should be redacted before public commit.
 ```
+
+M1 local import and redaction has started:
+
+```powershell
+.\scripts\import-gr23-data.ps1
+```
+
+By default, the script reads the GR23 project information and small donation TXT files from the desktop, then writes local outputs to:
+
+```text
+outputs/gr23-integrity/
+```
+
+Current local test result:
+
+```text
+Projects: 21
+Donations: 274
+Unique donors: 80
+Failed threshold donations: 91
+```
+
+Note: `outputs/` is gitignored; the private redaction map should not be committed publicly.
 
 ## Submission Docs
 

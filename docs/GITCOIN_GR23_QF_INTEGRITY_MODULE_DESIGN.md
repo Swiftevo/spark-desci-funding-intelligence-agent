@@ -484,10 +484,27 @@ Do not publish raw donor wallet table in demo slides.
 
 ### M1: Local Import And Redaction
 
-- Parse project application TXT / TSV
-- Parse small donation TXT / TSV
-- Generate redacted local JSON
-- Create wallet redaction map
+- [x] Parse project application TXT / TSV
+- [x] Parse small donation TXT / TSV
+- [x] Generate redacted local JSON
+- [x] Create wallet redaction map
+- [x] Keep generated outputs under ignored `outputs/gr23-integrity/`
+- [x] Verify public redacted outputs contain no raw wallet addresses or transaction hashes
+
+Current local import result:
+
+```text
+Projects: 21
+Donations: 274
+Unique donors: 80
+Failed threshold donations: 91
+```
+
+Command:
+
+```powershell
+.\scripts\import-gr23-data.ps1
+```
 
 ### M2: Deterministic Risk Analysis
 
@@ -513,4 +530,3 @@ Do not publish raw donor wallet table in demo slides.
 - Add public demo with redacted data
 - Document that outputs are risk signals only
 - Keep raw data local unless explicit permission is granted
-

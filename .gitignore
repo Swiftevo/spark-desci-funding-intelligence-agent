@@ -8,6 +8,13 @@
 outputs/
 review-output.json
 
+# Local sensitive GR23/QF integrity data
+data/gr23/raw/
+data/gr23/local/
+*.private.json
+*.raw.tsv
+*.raw.txt
+
 # Dependencies and caches
 node_modules/
 __pycache__/
