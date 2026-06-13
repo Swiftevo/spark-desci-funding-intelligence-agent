@@ -508,10 +508,39 @@ Command:
 
 ### M2: Deterministic Risk Analysis
 
-- Direct self-donation checks
-- Project wallet cross-donation checks
-- Shared donor cluster analysis
-- Passport / threshold concentration analysis
+- [x] Direct self-donation checks
+- [x] Project wallet cross-donation checks
+- [x] Shared donor cluster analysis
+- [x] Repeated amount pattern analysis
+- [x] Passport / threshold concentration analysis
+- [x] Redacted donor-project graph export
+
+Current local analysis result:
+
+```text
+Direct self-donation signals: 0
+Project wallet cross-donation signals: 19
+Shared donor clusters: 16
+Repeated amount patterns: 25
+Failed threshold rate: 0.3321
+```
+
+Command:
+
+```powershell
+.\scripts\analyze-gr23-integrity.ps1
+```
+
+Generated local outputs:
+
+```text
+outputs/gr23-integrity/gr23-integrity-report.json
+outputs/gr23-integrity/gr23-project-risk-summary.json
+outputs/gr23-integrity/gr23-donor-project-graph.json
+outputs/gr23-integrity/gr23-donor-project-edges.csv
+```
+
+All outputs are redacted review signals. They should not be treated as proof of misconduct.
 
 ### M3: GLM Reviewer Brief
 

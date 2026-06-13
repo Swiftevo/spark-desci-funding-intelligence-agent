@@ -97,12 +97,13 @@
   - [x] Generate redacted local JSON and private redaction map under ignored `outputs/gr23-integrity/`
   - [x] Verify redacted outputs do not contain raw wallet addresses or transaction hashes
   - [ ] Redact personal fields before any future public data commit (email, Telegram, private reviewer comments)
-  - [ ] Detect direct self-donation (`voter == grantAddress` / `voter == payoutAddress`)
-  - [ ] Detect project payout wallets acting as donors to other projects
-  - [ ] Detect repeated amount and broad donor patterns
-  - [ ] Detect shared donor clusters between projects
-  - [ ] Summarize passport / sybil score failure concentration by project
-  - [ ] Build donor-project graph JSON
+  - [x] Create `scripts/analyze-gr23-integrity.ps1`
+  - [x] Detect direct self-donation (`voter == grantAddress` / `voter == payoutAddress`)
+  - [x] Detect project payout wallets acting as donors to other projects
+  - [x] Detect repeated amount and broad donor patterns
+  - [x] Detect shared donor clusters between projects
+  - [x] Summarize passport / sybil score failure concentration by project
+  - [x] Build donor-project graph JSON and CSV edge list
   - [ ] Generate funding integrity brief with human-review-safe language
 - [ ] AMiner API integration (when access is obtained)
 - [ ] Gitcoin grant round data import (on-chain donation records)

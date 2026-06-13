@@ -234,6 +234,7 @@ DSPJ-0038-reviewer-brief.md
 | `search-academic-cache.ps1` | 即時 API 不可用時搜尋本地 academic metadata cache |
 | `build-academic-cache.ps1` | 從 OpenAlex metadata 建立 20-domain local academic cache |
 | `import-gr23-data.ps1` | 本地匯入 Gitcoin GR23 project / donation TXT，產生 redacted outputs 與 private local map |
+| `analyze-gr23-integrity.ps1` | 基於 redacted GR23 data 進行 deterministic QF integrity risk analysis |
 
 ## Roadmap
 
@@ -295,6 +296,33 @@ Failed threshold donations: 91
 ```
 
 注意：`outputs/` 已被 `.gitignore` 排除；private redaction map 不應公開 commit。
+
+M2 deterministic risk analysis 已開始：
+
+```powershell
+.\scripts\analyze-gr23-integrity.ps1
+```
+
+目前本地測試結果：
+
+```text
+Direct self-donation signals: 0
+Project wallet cross-donation signals: 19
+Shared donor clusters: 16
+Repeated amount patterns: 25
+Failed threshold rate: 0.3321
+```
+
+輸出包括：
+
+```text
+outputs/gr23-integrity/gr23-integrity-report.json
+outputs/gr23-integrity/gr23-project-risk-summary.json
+outputs/gr23-integrity/gr23-donor-project-graph.json
+outputs/gr23-integrity/gr23-donor-project-edges.csv
+```
+
+這些結果是 review-worthy signals，不是 misconduct accusation。
 
 ## Submission Docs
 
@@ -551,6 +579,7 @@ Recharge or activate an API resource package in the Z.AI dashboard, then retry.
 | `search-academic-cache.ps1` | Search the local academic metadata cache when live APIs are unavailable |
 | `build-academic-cache.ps1` | Build the 20-domain local academic metadata cache from OpenAlex metadata |
 | `import-gr23-data.ps1` | Locally import Gitcoin GR23 project / donation TXT files and generate redacted outputs plus a private local map |
+| `analyze-gr23-integrity.ps1` | Run deterministic QF integrity risk analysis on redacted GR23 data |
 
 ## Roadmap
 
@@ -612,6 +641,33 @@ Failed threshold donations: 91
 ```
 
 Note: `outputs/` is gitignored; the private redaction map should not be committed publicly.
+
+M2 deterministic risk analysis has started:
+
+```powershell
+.\scripts\analyze-gr23-integrity.ps1
+```
+
+Current local test result:
+
+```text
+Direct self-donation signals: 0
+Project wallet cross-donation signals: 19
+Shared donor clusters: 16
+Repeated amount patterns: 25
+Failed threshold rate: 0.3321
+```
+
+Outputs include:
+
+```text
+outputs/gr23-integrity/gr23-integrity-report.json
+outputs/gr23-integrity/gr23-project-risk-summary.json
+outputs/gr23-integrity/gr23-donor-project-graph.json
+outputs/gr23-integrity/gr23-donor-project-edges.csv
+```
+
+These results are review-worthy signals, not misconduct accusations.
 
 ## Submission Docs
 
