@@ -90,6 +90,7 @@
 ## Deferred (Post-Hackathon)
 
 - [ ] M6: Gitcoin DeSci QF Integrity Agent
+  - [x] Draft `docs/GITCOIN_GR23_QF_INTEGRITY_MODULE_DESIGN.md`
   - [ ] Import Gitcoin DeSci Round 23 project applications
   - [ ] Import small donation history
   - [ ] Redact personal fields before public commit (email, Telegram, private reviewer comments)

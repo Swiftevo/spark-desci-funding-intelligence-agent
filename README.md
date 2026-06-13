@@ -242,6 +242,8 @@ DSPJ-0038-reviewer-brief.md
 
 下一步計劃把 reviewer support 從 proposal / academic analysis 延伸到 Gitcoin DeSci quadratic funding 的 funding integrity review。
 
+設計文件：[Gitcoin GR23 DeSci QF Integrity Module Design](./docs/GITCOIN_GR23_QF_INTEGRITY_MODULE_DESIGN.md)
+
 預計輸入：
 
 ```text
@@ -532,6 +534,8 @@ See [todo.md](./todo.md) for milestones and progress.
 ### Next Module: Gitcoin DeSci QF Integrity Agent
 
 The next planned module extends reviewer support from proposal and academic analysis into funding integrity review for Gitcoin DeSci quadratic funding rounds.
+
+Design document: [Gitcoin GR23 DeSci QF Integrity Module Design](./docs/GITCOIN_GR23_QF_INTEGRITY_MODULE_DESIGN.md)
 
 Planned inputs:
 
