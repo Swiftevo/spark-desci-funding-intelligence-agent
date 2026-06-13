@@ -542,6 +542,86 @@ outputs/gr23-integrity/gr23-donor-project-edges.csv
 
 All outputs are redacted review signals. They should not be treated as proof of misconduct.
 
+### M2.1: Cross-Round Overlap Matching
+
+This layer checks whether Gitcoin GR23 projects may overlap with the Spark 49-project dataset.
+
+Implementation:
+
+```powershell
+.\scripts\match-gr23-spark-overlap.ps1
+```
+
+Inputs:
+
+```text
+data/projects.json
+outputs/gr23-integrity/gr23-entity-matching.local.json
+```
+
+Current local result:
+
+```text
+Spark projects: 49
+GR23 projects: 21
+Strong overlap signals: 3
+Possible overlap signals: 1
+```
+
+Current matches:
+
+```text
+DeSci Asia -> DSPJ-0029 DeSci Asia
+Hyvmind -> DSPJ-0005 hyvmind
+overlake bio -> DSPJ-0030 Overlake Bio
+FunDeSci -> DSPJ-0049 FunDeSci (possible)
+```
+
+Outputs:
+
+```text
+outputs/gr23-integrity/gr23-spark-overlap-report.json
+outputs/gr23-integrity/gr23-spark-overlap-best-matches.csv
+```
+
+Matching rules:
+
+```text
+exact title match
+title contains match
+GitHub handle overlap
+social handle overlap
+website domain match
+title/token similarity
+```
+
+Boundary:
+
+```text
+Overlap matches are entity-resolution signals for human confirmation.
+They are not definitive proof that two applications are operated by the same team.
+```
+
+### M2.2: Safe Owner Enrichment
+
+Planned next layer:
+
+```text
+Celo Safe payout wallet -> Safe owners / signers -> redacted owner wallet keys
+```
+
+This will allow the integrity module to detect whether a Safe owner wallet donated to the project whose payout wallet is that Safe.
+
+### M2.3: ENS Enrichment
+
+Planned next layer:
+
+```text
+wallet -> reverse ENS name, when available
+```
+
+ENS enrichment should use an env-var configured provider and leave missing ENS records blank. Public outputs should avoid doxxing or over-identifying donors.
+
 ### M3: GLM Reviewer Brief
 
 - Feed deterministic findings to GLM-5.1

@@ -235,6 +235,7 @@ DSPJ-0038-reviewer-brief.md
 | `build-academic-cache.ps1` | 從 OpenAlex metadata 建立 20-domain local academic cache |
 | `import-gr23-data.ps1` | 本地匯入 Gitcoin GR23 project / donation TXT，產生 redacted outputs 與 private local map |
 | `analyze-gr23-integrity.ps1` | 基於 redacted GR23 data 進行 deterministic QF integrity risk analysis |
+| `match-gr23-spark-overlap.ps1` | 比對 Gitcoin GR23 與 Spark 49 projects 的可能重疊項目 |
 
 ## Roadmap
 
@@ -323,6 +324,39 @@ outputs/gr23-integrity/gr23-donor-project-edges.csv
 ```
 
 這些結果是 review-worthy signals，不是 misconduct accusation。
+
+M2.1 cross-round overlap matching 已開始：
+
+```powershell
+.\scripts\match-gr23-spark-overlap.ps1
+```
+
+目前本地測試結果：
+
+```text
+Spark projects: 49
+GR23 projects: 21
+Strong overlap signals: 3
+Possible overlap signals: 1
+```
+
+目前命中：
+
+```text
+DeSci Asia -> DSPJ-0029 DeSci Asia
+Hyvmind -> DSPJ-0005 hyvmind
+overlake bio -> DSPJ-0030 Overlake Bio
+FunDeSci -> DSPJ-0049 FunDeSci (possible)
+```
+
+輸出：
+
+```text
+outputs/gr23-integrity/gr23-spark-overlap-report.json
+outputs/gr23-integrity/gr23-spark-overlap-best-matches.csv
+```
+
+這是 cross-round funding memory 的第一步；結果仍需人類確認。
 
 ## Submission Docs
 
@@ -580,6 +614,7 @@ Recharge or activate an API resource package in the Z.AI dashboard, then retry.
 | `build-academic-cache.ps1` | Build the 20-domain local academic metadata cache from OpenAlex metadata |
 | `import-gr23-data.ps1` | Locally import Gitcoin GR23 project / donation TXT files and generate redacted outputs plus a private local map |
 | `analyze-gr23-integrity.ps1` | Run deterministic QF integrity risk analysis on redacted GR23 data |
+| `match-gr23-spark-overlap.ps1` | Match possible project overlap between Gitcoin GR23 and the Spark 49-project dataset |
 
 ## Roadmap
 
@@ -668,6 +703,39 @@ outputs/gr23-integrity/gr23-donor-project-edges.csv
 ```
 
 These results are review-worthy signals, not misconduct accusations.
+
+M2.1 cross-round overlap matching has started:
+
+```powershell
+.\scripts\match-gr23-spark-overlap.ps1
+```
+
+Current local test result:
+
+```text
+Spark projects: 49
+GR23 projects: 21
+Strong overlap signals: 3
+Possible overlap signals: 1
+```
+
+Current matches:
+
+```text
+DeSci Asia -> DSPJ-0029 DeSci Asia
+Hyvmind -> DSPJ-0005 hyvmind
+overlake bio -> DSPJ-0030 Overlake Bio
+FunDeSci -> DSPJ-0049 FunDeSci (possible)
+```
+
+Outputs:
+
+```text
+outputs/gr23-integrity/gr23-spark-overlap-report.json
+outputs/gr23-integrity/gr23-spark-overlap-best-matches.csv
+```
+
+This is the first cross-round funding memory layer; matches still require human confirmation.
 
 ## Submission Docs
 

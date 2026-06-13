@@ -149,6 +149,48 @@ function Import-Tsv {
   return Import-Csv -LiteralPath $Path -Delimiter "`t" -Encoding UTF8
 }
 
+function Normalize-Domain {
+  param([string]$Value)
+
+  if ([string]::IsNullOrWhiteSpace($Value)) {
+    return ""
+  }
+
+  $candidate = $Value.Trim()
+  if ($candidate -notmatch "^https?://") {
+    $candidate = "https://$candidate"
+  }
+
+  try {
+    $uri = [System.Uri]$candidate
+    $host = $uri.Host.ToLowerInvariant()
+    if ($host.StartsWith("www.")) {
+      $host = $host.Substring(4)
+    }
+    return $host
+  } catch {
+    return ""
+  }
+}
+
+function Normalize-Handle {
+  param([string]$Value)
+
+  if ([string]::IsNullOrWhiteSpace($Value)) {
+    return ""
+  }
+
+  $text = $Value.Trim()
+  if ($text -match "github\.com/([^/\s?#]+)") {
+    return $Matches[1].Trim("@").ToLowerInvariant()
+  }
+  if ($text -match "(?:twitter\.com|x\.com)/([^/\s?#]+)") {
+    return $Matches[1].Trim("@").ToLowerInvariant()
+  }
+
+  return $text.Trim("@").ToLowerInvariant()
+}
+
 Assert-FileExists -Path $ProjectInfoPath -Label "Project information"
 Assert-FileExists -Path $DonationPath -Label "Donation history"
 
@@ -166,6 +208,7 @@ $donations = Import-Tsv -Path $DonationPath
 $redactionMap = @{}
 $projectIndex = @{}
 $payoutWalletIndex = @{}
+$entityMatchingRows = [System.Collections.ArrayList]::new()
 
 $redactedProjects = foreach ($project in $projects) {
   $projectId = Get-FieldValue -Row $project -Names @("projectId")
@@ -175,6 +218,7 @@ $redactedProjects = foreach ($project in $projects) {
   $payoutAddress = Normalize-Address (Get-FieldValue -Row $project -Names @("payoutAddress"))
   $website = Get-FieldValue -Row $project -Names @("website")
   $projectGithub = Get-FieldValue -Row $project -Names @("projectGithub")
+  $projectTwitter = Get-FieldValue -Row $project -Names @("projectTwitter")
   $userGithub = Get-FieldValue -Row $project -Names @("userGithub")
   $teamSize = Get-FieldValue -Row $project -Names @("Team Size")
   $projectAge = Get-FieldValue -Row $project -Names @("How old is the project? (Months)")
@@ -211,6 +255,17 @@ $redactedProjects = foreach ($project in $projects) {
       title = $title
     }
   }
+
+  [void]$entityMatchingRows.Add([pscustomobject][ordered]@{
+    project_key = $projectKey
+    application_id = $applicationId
+    title = $title
+    normalized_title = ($title -replace "[^a-zA-Z0-9]+", " ").Trim().ToLowerInvariant()
+    website_domain = Normalize-Domain -Value $website
+    project_twitter = Normalize-Handle -Value $projectTwitter
+    project_github = Normalize-Handle -Value $projectGithub
+    user_github = Normalize-Handle -Value $userGithub
+  })
 
   [pscustomobject][ordered]@{
     application_id = $applicationId
@@ -333,10 +388,12 @@ $privateMapOutput = [ordered]@{
 $redactedPath = Join-Path $OutDir "gr23-redacted-data.json"
 $summaryPath = Join-Path $OutDir "gr23-import-summary.json"
 $privateMapPath = Join-Path $OutDir "gr23-redaction-map.private.json"
+$entityMatchingPath = Join-Path $OutDir "gr23-entity-matching.local.json"
 
 $publicOutput | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $redactedPath -Encoding UTF8
 $summary | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $summaryPath -Encoding UTF8
 $privateMapOutput | ConvertTo-Json -Depth 20 | Set-Content -LiteralPath $privateMapPath -Encoding UTF8
+@($entityMatchingRows) | ConvertTo-Json -Depth 10 | Set-Content -LiteralPath $entityMatchingPath -Encoding UTF8
 
 Write-Host "GR23 import complete." -ForegroundColor Cyan
 Write-Host "Projects:  $(@($redactedProjects).Count)"
@@ -347,5 +404,6 @@ Write-Host ""
 Write-Host "Redacted data: $redactedPath"
 Write-Host "Summary:       $summaryPath"
 Write-Host "Private map:   $privateMapPath"
+Write-Host "Entity match:  $entityMatchingPath"
 Write-Host ""
 Write-Host "Do not commit files under outputs/gr23-integrity unless explicitly reviewed." -ForegroundColor Yellow

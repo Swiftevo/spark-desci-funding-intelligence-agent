@@ -104,6 +104,11 @@
   - [x] Detect shared donor clusters between projects
   - [x] Summarize passport / sybil score failure concentration by project
   - [x] Build donor-project graph JSON and CSV edge list
+  - [x] Add `gr23-entity-matching.local.json` output for local-only cross-round entity matching
+  - [x] Create `scripts/match-gr23-spark-overlap.ps1`
+  - [x] Match Gitcoin GR23 projects against Spark 49-project dataset
+  - [ ] Add Safe owner enrichment for Celo Safe payout wallets
+  - [ ] Add ENS enrichment using env-var configured RPC / provider
   - [ ] Generate funding integrity brief with human-review-safe language
 - [ ] AMiner API integration (when access is obtained)
 - [ ] Gitcoin grant round data import (on-chain donation records)
